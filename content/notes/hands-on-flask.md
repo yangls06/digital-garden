@@ -17,7 +17,11 @@ https://flask.palletsprojects.com/en/2.2.x/tutorial/
 
 做一个blog web：
 
-![screenshot of index page](./images/flaskr_index-20221130173958736.png)
+
+
+![image-20221201145000837](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221201145000837.png)
+
+
 
 ## Step by Step
 
@@ -94,9 +98,7 @@ $ . venv/bin/activate
 
 Then the environment has been changed.
 
-![image-20221201112435421](./images/image-20221201112435421.png)
-
-
+![image-20221201153333547](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221201153333547.png)
 
 Install Flask
 

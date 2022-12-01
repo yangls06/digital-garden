@@ -21,7 +21,7 @@ enableToc: false
 
 
 
-My Digital Garden include:
+My Digital Garden include: xx
 
-* [Python Programming](notes/python programming.md)
+* [Python Programming](notes/python-programming.md)
 
