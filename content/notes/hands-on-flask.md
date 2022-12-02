@@ -253,13 +253,11 @@ Then open 127.0.0.1:5000/hello in browser, got
 
 ![image-20221201162507048](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221201162507048.png)
 
-## Step 4. Define and Access the Database
+### Step 4. Define and Access the Database
 
 The app will use `Sqlite` database to store users and posts. Python has a built-in module `sqlite3` module.
 
-
-
-### Connect to Sqlite
+#### Connect to Sqlite
 
 flaskr/db.py
 
@@ -291,7 +289,7 @@ def close_db(e=None):
 
 
 
-### Create Tables: using sql
+#### Create Tables: using sql
 
 Define `user` and `post` table in `flaskr/schema.sql`:
 
@@ -335,7 +333,7 @@ def init_db_command():
 
 
 
-### Register with the Applicaiton
+#### Register with the Applicaiton
 
 The close_db and init_db_command functions need to be registered with the app instance for use.
 
@@ -369,7 +367,7 @@ def create_app(test_config=None):
 
 
 
-### Initialize the Database
+#### Initialize the Database
 
 Now use `init-db`command like this:
 
@@ -387,3 +385,230 @@ instance/
 
 
 The command generates a sqlite db file `flaskr.sqlite` in `instance/` dir. 
+
+
+
+### Step 5. Blueprints and Views
+
+Referances:
+
+[Blueprints and Views](https://flask.palletsprojects.com/en/2.2.x/tutorial/views/)
+
+[Use a Flask Blueprint to Architect Your Applications](https://realpython.com/flask-blueprint/#:~:text=Flask%20is%20a%20very%20popular,its%20functionality%20into%20reusable%20components)
+
+
+
+Concept: view
+
+A view is Flask's respond to the outgoing request. Flask uses patterns to match the incoming request URL to the view that should handle it.
+
+
+
+Concept: blueprint
+
+A blueprint is a way to organize a group of related views and other code. Rather than registering views and other code directly with an application, they are registered with a blueprint. Then the blueprint is registered with the application when it is available in the factory function.
+
+
+
+#### Create a Blueprint
+
+Flaskr will have two blueprints:
+
+* auth functions
+* blog posts functions
+
+
+
+`Flaskr/auth.py`
+
+```python
+import functools
+
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, session, url_for
+)
+from werkzeug.security import check_password_hash, generate_password_hash
+from flaskr.db import get_db
+
+bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+```
+
+A new `Blueprint` is created:
+
+* with `name`: 'auth'
+* with `import_name`: '\__name__', helping the blueprint to know where it’s defined
+* with `url_prefix`: will be prepended (added at head)to all the URLs associated with this blueprint.
+
+Then register the blueprint to the app from the factory in the `__init__.py`
+
+```python
+def create_app(test_config=None):
+    # create and configure the app
+    app = ...
+    # existing code omitted
+    
+
+    # add auth blueprint
+    from . import auth
+    app.register_blueprint(auth.bp)
+
+    return app
+```
+
+
+
+> Referances:
+>
+> [Python functools](https://docs.python.org/3/library/functools.html)
+
+
+
+#### Register view
+
+When the user visits the `/auth/register` URL, the `register` view will return [HTML](https://developer.mozilla.org/docs/Web/HTML) with a form for them to fill out. When they submit the form, it will validate their input and either show the form again with an error message or create the new user and go to the login page.
+
+
+
+The view code is as following in `flaskr/auth.py`
+
+```python
+@bp.route('/register', methods=('GET', 'POST'))
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        db = get_db()
+        error = None
+
+        if not username:
+            error = 'Username is required.'
+        elif not password:
+            error = 'Password is required.'
+
+        if error is None:
+            try:
+                db.execute(
+                    'INSERT INTO user (username, password) VALUES (?, ?)',
+                    (username, generate_password_hash(password))
+                )
+                db.commit()
+            except db.IntegrityError:
+                error = f"User {username} is already registered."
+            else:
+                return redirect(url_for('auth.login'))
+        
+        flash(error)
+    
+    return render_template('auth/register.html')
+```
+
+
+
+The `register` view works as following:
+
+* @bp.route associates the URL `/register` with the `register` view.
+* If the user submited the register form, `request.method == 'POST'`, then validate the input `username` and `password` and store them into the database.
+* If storing the user info succeeds, then redirect to the `auth.login` page.
+* If the user is initially landing on the `register` page, or there was a validation error, the `register.html` will be shown.
+
+
+
+#### Login view
+
+This view follows the same pattern as `register` view.
+
+```python
+ @bp.route('/login', methods=('GET', 'POST'))
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        db = get_db()
+        error = None
+
+        user = db.execute(
+            'SELECT * FROM user WHERE username = ?', (username,)
+        ).fetchone()
+
+        if user is None:
+            error = 'Incorrect username.'
+        elif not check_password_hash(user['password'], password):
+            error = 'Incorrect password.'
+        
+        if error is None:
+            session.clear()
+            session['user_id'] = user['id']
+            return redirect(url_for('index'))
+        
+        flash(error)
+    
+    return render_template('auth/login.html')
+
+```
+
+Tips:
+
+* The user info is queried and stored in `user` variable using `fetch_one` function.
+* Validate the `username` and `password` (by `check_password_hash`) inputs.
+* The `session` (a dict storing data across requests) refreshes if login succeeds. (The data is stored in a *cookie* that is sent to the browser, and the browser then sends it back with subsequent requests.)
+
+
+
+We can get user info at the beginning of each request via `session`:
+
+```python
+@bp.before_app_request
+def load_logged_in_user():
+    user_id = session.get('user_id')
+
+    if user_id is None:
+        g.user = None
+    else:
+        g.user = get_db().execute(
+            'SELECT * FROM user WHERE id = ?', (user_id,)
+        ).fetchone()
+```
+
+Tips:
+
+* [`bp.before_app_request()`](https://flask.palletsprojects.com/en/2.2.x/api/#flask.Blueprint.before_app_request) registers a function that runs before the view function, no matter what URL is requested. 
+* `load_logged_in_user`  gets that user info from the database via `session` and stores it on [`g.user`](https://flask.palletsprojects.com/en/2.2.x/api/#flask.g), which lasts for the length of the request. 
+
+
+
+#### Logout view
+
+The Logout view removes the user id from the [`session`](https://flask.palletsprojects.com/en/2.2.x/api/#flask.session). 
+
+```python
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
+```
+
+
+
+#### Require Auth in Other views
+
+Creating, editing and deleting blog posts requires the user to be logged in. Use a **decorator** to achieve this.
+
+```python
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+        
+        return view(**kwargs)
+    
+    return wrapped_view 
+```
+
+This decorator wraps the view in this way: if a user is not logged in, then redirect to login page; if logged in, return the orginal view.
+
+
+
+### Step 6. Templates
+
