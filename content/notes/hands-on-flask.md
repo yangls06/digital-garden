@@ -612,3 +612,541 @@ This decorator wraps the view in this way: if a user is not logged in, then redi
 
 ### Step 6. Templates
 
+Though `auth.login` view has been created, a `TemplateNotFound` error will be raised when you visit http://127.0.0.1:5000/auth/login.
+
+
+
+![image-20221202154357379](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221202154357379.png)
+
+This is because the view calls `render_template()`, but no templates are created. 
+
+
+
+Tips:
+
+* The template files will be stored in the `templates` directory inside the `flaskr` package.
+* Templates are files that contain static data as well as placeholders for dynamic data. 
+* A template is rendered with specific data to produce a final document. Flask uses the [Jinja](https://jinja.palletsprojects.com/templates/) template library to render templates.
+* Special delimiters are used to distinguish Jinja syntax from the static data in the template. 
+  * Anything between `{{` and `}}` is an expression that will be output to the final document. 
+  * `{%` and `%}` denotes a control flow statement like `if` and `for`
+
+
+
+#### The Base Layout
+
+Each page in the app has the same basic layout around a different body.Instead of writing the entire HTML structure in each template, each template will extend a base template and override specific sections.
+
+
+
+File: `flaskr/templates/base.html`
+
+```html
+<!DOCTYPE html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+   <h1>Flaskr</h1>
+   <ul>
+    {% if g.user %}
+        <li><span>{{ g.user['username'] }}</span></li>
+        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+    {% else %}
+        <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+        <li><a href="{{ url_for('auth.login') }}">Log <Input:c></Input:c></a></li>
+    {% endif %}
+   </ul> 
+</nav>
+
+<section class="content">
+    <header>
+        {% block header %}
+        {% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+    {% endfor %}
+    
+    {% block content %}
+    {% endblock %}
+</section>
+
+```
+
+
+
+>Notes: Using `Jinja Snippets` and `HTML CSS Support` extensions in vscode is helpful to write html code of Jinja templates.
+
+
+
+There are three blocks defined here that will be overridden in the other templates:
+
+* `{% block title %}` will change the title displayed in the browser’s tab and window title.
+* `{% block header %}` is similar to `title` but will change the title displayed on the page.
+* `{% block content %}` is where the content of each page goes, such as the login form or a blog post.
+
+
+
+The base template is directly in the `templates` directory. To keep the others organized, the templates for a blueprint will be placed in a directory with the same name as the blueprint.
+
+#### Register template
+
+File: `flaskr/templates/register.html`
+
+```html
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <label for="username">Username</label>
+        <input name="username" id="username" required>        
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+        <input type="submit" value="Register">
+    </form>
+{% endblock %}
+```
+
+
+#### Log In template
+
+This is identical to the register template except for the title and submit button.
+
+```html
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Log In{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <label for="username">Username</label>
+        <input name="username" id="username" required>        
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+        <input type="submit" value="Log In">
+    </form>
+{% endblock %}
+```
+
+
+
+#### Register a user
+
+Visit http://127.0.0.1:5000/auth/register
+
+![image-20221202174125671](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221202174125671.png)
+
+If no password inputed, you will see:
+
+![image-20221202174349791](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221202174349791.png)
+
+If register succeeds, it will redirect to login page:
+
+![image-20221202174548748](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221202174548748.png)
+
+If incorrect password is inputed, you will get `Incorrect password` warning:
+
+![image-20221202174721957](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221202174721957.png)
+
+
+
+### Step 7. Static Files
+
+Use css file in the `flask/static` directory to give the webpages some style. In the `base.html` template there is already a link to `style.css` file.
+
+```html
+{{ url_for('static', filename='style.css') }}
+```
+
+
+
+File: flask/static/style.css
+
+```css
+html { font-family: sans-serif; background: #eee; padding: 1rem; }
+body { max-width: 960px; margin: 0 auto; background: white; }
+h1 { font-family: serif; color: #377ba8; margin: 1rem 0; }
+a { color: #377ba8; }
+hr { border: none; border-top: 1px solid lightgray; }
+nav { background: lightgray; display: flex; align-items: center; padding: 0 0.5rem; }
+nav h1 { flex: auto; margin: 0; }
+nav h1 a { text-decoration: none; padding: 0.25rem 0.5rem; }
+nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
+nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
+.content { padding: 0 1rem 1rem; }
+.content > header { border-bottom: 1px solid lightgray; display: flex; align-items: flex-end; }
+.content > header h1 { flex: auto; margin: 1rem 0 0.25rem 0; }
+.flash { margin: 1em 0; padding: 1em; background: #cae6f6; border: 1px solid #377ba8; }
+.post > header { display: flex; align-items: flex-end; font-size: 0.85em; }
+.post > header > div:first-of-type { flex: auto; }
+.post > header h1 { font-size: 1.5em; margin-bottom: 0; }
+.post .about { color: slategray; font-style: italic; }
+.post .body { white-space: pre-line; }
+.content:last-child { margin-bottom: 0; }
+.content form { margin: 1em 0; display: flex; flex-direction: column; }
+.content label { font-weight: bold; margin-bottom: 0.5em; }
+.content input, .content textarea { margin-bottom: 1em; }
+.content textarea { min-height: 12em; resize: vertical; }
+input.danger { color: #cc2f2e; }
+input[type=submit] { align-self: start; min-width: 10em; }
+```
+
+
+
+After that, reload the login page, and you can see:
+
+![image-20221202175806462](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221202175806462.png)
+
+
+
+### Step 8. Blog Blueprint
+
+Implement the blog blueprint to allow a logged-in user to create posts and edit/delete the posts of his/her own.
+
+> Note: As you implement each view, keep the development server running. As you save your changes, try going to the URL in your browser and testing them out.
+
+
+
+#### The Blog Blueprint
+
+
+
+Define blog blueprint in file: `flask/blog.py`
+
+``` 
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, session, url_for
+)
+from werkzeug.exceptions import abort
+
+from flaskr.db import get_db
+from flaskr.auth import login_required
+
+bp = Blueprint('auth', __name__)
+```
+
+
+
+Register this blueprint in the app factory in file : `flask/__init__.py`
+
+```python
+def create_app(test_config=None):
+    # create and configure the app
+    app = ...
+    # existing code omitted
+
+    # add blog blueprint
+    from . import blog
+    app.register_blueprint(blog.bp)
+    app.add_url_rule('/', endpoint='index')
+
+    return app
+```
+
+
+
+Unlike the auth blueprint, the blog blueprint does not have a `url_prefix`. So the index view will be at `/`, the create view at `/create`. The blog is the main feature of Flaskr app, so it makes sense that the blog index will be the main index.
+
+
+
+The endpoint for index view in blog blueprint will be `blog.index`. The `app.add_url_rule('/', endpoint='index')` code associates the endpoint name 'index' with the `/` url so that `url_for('index')` or `url_for('blog.index')` will both work, generating the same `/` URL either way. 
+
+
+
+#### Index: view and template
+
+The index view shows all the posts of the logged-in user, order by created time desc. Use SQL's JOIN clause.
+
+
+
+Define index view in file: `flaskr/blog.py`:
+
+```python
+@bp.route('/')
+def index():
+    db = get_db()
+    posts = db.execute(
+        'SELECT p.id, title, body, created, author_id, username'
+        ' FROM post p JOIN user u ON p.author_id = u.id'
+        ' ORDER BY created DESC'
+    ).fetchall()
+    return render_template('blog/index.html', posts=posts)
+```
+
+
+
+Define index template in file: `flaskr/templates/index.html`:
+
+```html
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Posts{% endblock %}</h1>
+    {% if g.user %}
+        <a class="action" href="{{ url_for('blog.create') }}" >New</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+        <article class="post">
+            <header>
+                <div>
+                    <h1>{{ post['title'] }}</h1>
+                    <div class="about">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
+                </div>
+                {% if g.user['id'] == post['author_id'] %}
+                    <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
+                {% endif %}
+            </header>
+        </article>
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+```
+
+Tips:
+
+* when a user is logged in, the `header` block adds a link to the `create` view.
+* when the user is the author of a post, an `Edit` link to the `update` view will be seen.
+* `loop.last` is a special variable of Jinja's loop.
+
+
+
+#### Create: view and template
+
+The `blog.create` view acts the similar way as `auth.register` view.
+
+Define `blog.create` view in file: `flaskr/blog.py`:
+
+```python
+@bp.route('/create', methods=('GET', 'POST'))
+@login_required
+def create():
+    if request.method == 'POST':
+        title = request.form['title']
+        body = request.form['body']
+        error = None
+
+        if not title:
+            error = 'Title is requested.'
+        
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                'INSERT INTO post (title, body, author_id)'
+                ' VALUES (?, ?, ?)',
+                (title, body, g.user['id'])
+            )
+            db.commit()
+            return redirect(url_for('blog.index'))
+            
+    return render_template('blog/create.html')
+```
+
+
+
+Tips:
+
+* if a new post is POSTed, add it into the database.
+* Or display the form of creating post in the `create` template.
+* Login_required decorator is used here to insure the user is logged-in before a new post is created.
+
+
+
+Define the `create` template in file: `flaskr/templates/blog/create.html`
+
+```html
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}New Post{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        <label for="title">Title</label>
+        <input name="title" id="title" value="{{ request.form['title'] }}" required>
+        <label for="body">Body</label>
+        <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+        <input type="submit" value="Save">
+    </form>
+{% endblock %}
+```
+
+
+
+#### Update: view and template
+
+Write a `get_post()` function to fetch a post by id and check if the author equals the logged in user. This function will be used in `update` and `delete` view.
+
+
+
+Define get_post() function in file: `flaskr/blog.py`:
+
+```python
+def get_post(id, check_author=True):
+    post = get_db().execute(
+        'SELECT p.id, title, body, created, author_id, user_name'
+        ' FROM post p JOIN user u ON p.author_id=u.id'
+        ' WHERE p.id = ?',
+        (id,)
+    ).fetchone()
+
+    if post is None:
+        abort(404, f'Post id {id} does not exist.')
+
+    if check_author and post['author_id'] != g.user['id']:
+        abort(403)
+    
+    return post
+```
+
+Tips:
+
+* `abort()` will raise a exception that returns an HTTP status code like 404 (Not Found) or 403 (Forbidden).
+
+
+
+Define `update` view in file: `flaskr/blog.py`:
+
+```python
+
+@bp.route('/<int:id>/update', methods=('GET', 'POST'))
+@login_required
+def update(id):
+    post = get_post(id)
+
+    if request.method == 'POST':
+        title = request.form['title']
+        body = request.form['body']
+        error = None
+
+        if not title:
+            error = 'Title is required.'
+        
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                'UPDATE post SET title = ?, body = ?'
+                ' WHERE id = ?',
+                (title, body, id)
+            )
+            db.commit()
+            return redirect(url_for('blog.index'))
+        
+    return render_template('blog/update.html', post=post)
+```
+
+Tips:
+
+* `update` view takes an argument `id` , which corresponds to the `<int:id>` in the route. A real URL will look like `/1/update`. And the url_for() function also needs to be passed the `id` argument in the way of `url_for('blog.update', id=post['id'])`.
+
+
+
+Define the update template in file: `flaskr/templates/blog/update.html`
+
+```html
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Edit "{{ post['title'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        <label for="title">Title</label>
+        <input name="title" id="title" value="{{ request.form['title'] or post['title'] }}" required>
+        <label for="body">Body</label>
+        <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
+        <input type="submit" value="Save">
+    </form>
+    <hr>
+    <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
+        <input type="submit" value="Delete" class="danger" onclick="return confirm('Are you sure?');">
+    </form>
+{% endblock %}
+```
+
+
+
+Tips:
+
+* This templates has two forms:
+  * The first one to edit the current post(`/<id>/update`)
+  * The other one to delete the post
+* The pattern `{{ request.form['title'] or post['title'] }}` is used to choose what data appears in the form. 
+  * When the form hasn’t been submitted, the original `post` data appears
+  * but if invalid form data was posted you want to display that so the user can fix the error, so `request.form` is used instead.
+
+
+
+#### Delete: view
+
+The delete view has no template. Define it:
+
+```python
+@bp.route('/<int:id>/delete', methods=('POST',))
+@login_required
+def delete(id):
+    get_post(id)
+    db = get_db()
+    db.execute('DELETE FROM post WHERE id = ?', (id,))
+    db.commit()
+    return redirect(url_for('blog.index'))
+
+```
+
+
+
+Now all code are finished. Try it!
+
+
+
+log in 
+
+![image-20221203225939183](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221203225939183.png)
+
+
+
+Log out
+
+![image-20221203230028831](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221203230028831.png)
+
+
+
+Create a post
+
+![image-20221203230103978](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221203230103978.png)
+
+
+
+Writing
+
+![image-20221203230232647](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221203230232647.png)
+
+
+
+saved
+
+![image-20221203230339421](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221203230339421.png)
+
+edit
+
+![image-20221203230548770](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221203230548770.png)
+
+
+
+Great!
