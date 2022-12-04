@@ -5,7 +5,11 @@ tags:
 weight: -5
 ---
 
-# Flask上手
+# Hands on Flask: step by step
+
+> I am a newcomer of Flask. So I follow the official tutorial to build a blog post web application step by step.
+
+
 
 ## Reference
 

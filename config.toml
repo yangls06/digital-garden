@@ -1,6 +1,6 @@
 baseURL = "https://yangls06.github.io/digital-garden/"
 languageCode = "en-us"
-googleAnalytics = "G-XYFD95KB4J"
+googleAnalytics = "G-GQ32FS7YEX"
 relativeURLs = false
 disablePathToLower = true
 ignoreFiles = [
