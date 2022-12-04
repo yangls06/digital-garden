@@ -4,7 +4,6 @@ enableToc: false
 ---
 
 
-
 欢迎来到“无人之路”，走进我的数字花园。在这里，我汇集、整理自己在数据系统、自动驾驶、个人管理、人生体悟等方面的涉猎和思考，构建自己的知识系统和精神世界。
 
 
@@ -21,7 +20,7 @@ enableToc: false
 
 
 
-My Digital Garden include: xx
+My Digital Garden include: 
 
 * [Python Programming](notes/python-programming.md)
 
