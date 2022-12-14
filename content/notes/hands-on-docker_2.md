@@ -85,9 +85,11 @@ phpinfo();
 
 保存以后，浏览器刷新`172.17.0.2`，应该就会看到熟悉的`phpinfo`页面了。
 
-![img](https://j0tzfdufdk.feishu.cn/space/api/box/stream/download/asynccode/?code=MTE1MTExN2M2NjUzYTQzYjIyNmZhMmUxMDRmMGQwYzZfMUdteFNRN2NnaHBERTZVdDQzYVFKbkxKT29QQmZybWtfVG9rZW46Ym94Y25uV2xkc2J6SDJhd0hGaTlhU25BbE5oXzE2NzEwMTE4MDE6MTY3MTAxNTQwMV9WNA)
 
-#### 2.2 拷贝 WordPress 安装包
+
+![135ee4ef-bf47-4239-935a-2eab8f896575](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/135ee4ef-bf47-4239-935a-2eab8f896575.jpeg)
+
+2.2 拷贝 WordPress 安装包
 
 既然本地的`docker-demo`目录可以映射到容器里面，那么把 WordPress 安装包拷贝到`docker-demo`目录下，不就可以通过容器访问到 WordPress 的安装界面了吗？
 
@@ -102,7 +104,9 @@ tar -xvf wordpress-4.9.4-zh_CN.tar.gz
 
 这时浏览器访问`http://172.17.0.2/wordpress`，就能看到 WordPress 的安装提示了。
 
-![img](https://j0tzfdufdk.feishu.cn/space/api/box/stream/download/asynccode/?code=MDkxMGFmNzI3MjA2MWIxZmUyNTFjZTAyYWNkMzNkY2RfUlZOM2hEQTFHZkhwTlRHd0QzdGFmQTQxcklIaW9WUmhfVG9rZW46Ym94Y25DcU43NHE5SkM1TEF1UEJ2dE95eWdmXzE2NzEwMTE4MDE6MTY3MTAxNTQwMV9WNA)
+
+
+![555d7606-f3b7-45d4-b440-a3e78ac456a5](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/555d7606-f3b7-45d4-b440-a3e78ac456a5.jpeg)
 
 #### 2.3 官方的 MySQL 容器
 
@@ -207,7 +211,7 @@ chmod -R 777 wordpress
 
 WordPress 提示要输入数据库参数。输入的参数如下。
 
-![img](https://j0tzfdufdk.feishu.cn/space/api/box/stream/download/asynccode/?code=MzEyYjA2NmVmMDE0NWU3N2ExZGU2ZjAyZWFmYTlhODVfd29RTHdycHluMURNUG9XZlZxS2FKTld4Nk1iZXk4a1dfVG9rZW46Ym94Y254YWVpSmRCM21qUElZZ0RIWmRpODVkXzE2NzEwMTE4MDE6MTY3MTAxNTQwMV9WNA)
+![7a2e3f14-a418-40ef-b5f8-8036fa3035b9](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/7a2e3f14-a418-40ef-b5f8-8036fa3035b9.jpeg)
 
 > - 数据库名：`wordpress`
 >
@@ -221,15 +225,15 @@ WordPress 提示要输入数据库参数。输入的参数如下。
 
 点击"下一步"按钮，如果 Wordpress 连接数据库成功，就会出现下面的页面，这就表示可以安装了。
 
-![img](https://j0tzfdufdk.feishu.cn/space/api/box/stream/download/asynccode/?code=MDFjODhjOWEzZGJhNTc0MWJjMTI2ZmE1ZWM4ZTVlYTlfRnpyN2xadDJZMzJiSWszMlhWVk00NjV5dzZJYm1ZZjBfVG9rZW46Ym94Y25wbk1oZ3NieVNWVDlucWxHWFJRbGVlXzE2NzEwMTE4MDE6MTY3MTAxNTQwMV9WNA)
+![IdmeQaS9iG](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/IdmeQaS9iG.jpg)
 
 至此，自建 WordPress 容器的演示完毕，可以把正在运行的两个容器关闭了（容器文件会自动删除）。
 
-![img](https://j0tzfdufdk.feishu.cn/space/api/box/stream/download/asynccode/?code=NTk1ZTQ1MDhiOTI4MTE1MzIzZjZlMTI3ODJjODAyZWVfSmRHcWdKc09oRDJXMElHZ0N1WWU5YzhKNk05STN4ODFfVG9rZW46Ym94Y255T2lCVWpmd2NOaFppQUlxZEtUYk5oXzE2NzEwMTE4MDE6MTY3MTAxNTQwMV9WNA)
+<img src="https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/4MkHfisE5P.jpg" alt="4MkHfisE5P" style="zoom:33%;" />
 
 安装之后
 
-![img](https://j0tzfdufdk.feishu.cn/space/api/box/stream/download/asynccode/?code=MzkwYTg5NzQwMzJlYzAyZTNlNWI0MGI2MDBiYWZhZDZfWUdBd1VrV2tXNk4xc0RRNU5WeVB2M2hNbXJEYnJZcG1fVG9rZW46Ym94Y25tUExQRGUxMnp0dkI0WXhsbXJ6bU9oXzE2NzEwMTE4MDE6MTY3MTAxNTQwMV9WNA)
+<img src="https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/PXh6tI53nv.jpg" alt="PXh6tI53nv" style="zoom:50%;" />
 
 ```Bash
 docker container stop wordpress wordpressdb
@@ -307,7 +311,7 @@ docker container inspect wordpress
 
 浏览器访问`172.17.0.3`，就会看到 WordPress 的安装提示。
 
-![img](https://j0tzfdufdk.feishu.cn/space/api/box/stream/download/asynccode/?code=NjM4MmQ0MzQ2OGU1NTgzM2ZmM2NkNmJkMzY2M2QyMzdfVVY4dUdnQ1F0ZWM5OW1GaGFZVTFGZ0ZyUkVZRGY0aW5fVG9rZW46Ym94Y25kSURBVXN5NUdndWFBTjlDUTFrdGdkXzE2NzEwMTE4MDE6MTY3MTAxNTQwMV9WNA)
+<img src="https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/fOzoBcsIhF.jpg" alt="fOzoBcsIhF" style="zoom:33%;" />
 
 #### 3.2 WordPress 容器的定制
 
@@ -348,7 +352,7 @@ docker container run \
 
 浏览器访问`127.0.0.2:8080`就能看到 WordPress 的安装提示了。而且，你在`wordpress`子目录下的每次修改，都会反映到容器里面。
 
-![img](https://j0tzfdufdk.feishu.cn/space/api/box/stream/download/asynccode/?code=NTY2NGJjYjUxM2ViNjM0YjEzNTQ3MzQ0YWJlMmVlMmJfVm9nVzRRVkRVcmtUcDJUQzBmVDR2OVhTNnJxeVdYY2VfVG9rZW46Ym94Y25lYzlUMW1meUlLNXdEWGREVFZIUmJnXzE2NzEwMTE4MDE6MTY3MTAxNTQwMV9WNA)
+<img src="https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/VjVIgk6FeM.jpg" alt="VjVIgk6FeM" style="zoom:33%;" />
 
 最后，终止这两个容器（容器文件会自动删除）。
 
@@ -362,9 +366,7 @@ docker container stop wordpress wordpressdb
 
 #### 4.1 Docker Compose 简介
 
- 
-
-![img](https://j0tzfdufdk.feishu.cn/space/api/box/stream/download/asynccode/?code=MGZjZTA4YTllOTk0MDZlYjY3ZDI1NzUyZDUyNmU1MTlfU3pPR0Y0ZjlCQjBMWjZXMW9uQ0FvUFlzdmFuM2xLZVpfVG9rZW46Ym94Y25Nbk9lYm55UUNPaUc1bnpoRjA5QktRXzE2NzEwMTE4MDE6MTY3MTAxNTQwMV9WNA)
+ ![KulToe4cJl](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/KulToe4cJl.jpg)
 
 [Compose](https://docs.docker.com/compose/) 是 Docker 公司推出的一个工具软件，可以管理多个 Docker 容器组成一个应用。你需要定义一个 [YAML](https://www.ruanyifeng.com/blog/2016/07/yaml.html) 格式的配置文件`docker-compose.yml`，写好多个容器之间的调用关系。然后，只要一个命令，就能同时启动/关闭这些容器。
 
@@ -421,7 +423,7 @@ docker compose up
 
 浏览器访问 http://127.0.0.3:8080，应该就能看到 WordPress 的安装界面。
 
-![img](https://j0tzfdufdk.feishu.cn/space/api/box/stream/download/asynccode/?code=YTYyMWNjMTE5ZDJiN2E3NmM2ZjQ5ZTkzZjk5NTZlZjlfQnEwYXgxZlRYTVBmeU5hU2RFaGRoNm9jekdCZmtldzFfVG9rZW46Ym94Y25tUkxqcm04YlRoZzI5Z3BRWHRwUFdlXzE2NzEwMTE4MDE6MTY3MTAxNTQwMV9WNA)
+<img src="https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/rbQBhnSKGe.jpg" alt="rbQBhnSKGe" style="zoom:50%;" />
 
 现在关闭两个容器。
 

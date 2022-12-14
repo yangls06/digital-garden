@@ -15,7 +15,9 @@ weight: -5
 
 [阮一峰：Docker入门教程](https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html)
 
+进一步实践，请移步：
 
+* [Docker进阶：step by step](notes/hands-on-docker_2.md)
 
 ## 一、环境配置的难题
 
@@ -299,7 +301,7 @@ $ docker image build -t koa-demo:0.0.1 .
 $ docker image ls
 ```
 
-![img](https://j0tzfdufdk.feishu.cn/space/api/box/stream/download/asynccode/?code=MzYxMzM4ODE4NDUzYmE0YjYxNTc5OTFlZTUwY2E1YzBfNTNROGhKNEh3cHp2MW1CUFQ1N3BuYVNUUU9EZ1FySWJfVG9rZW46Ym94Y25LR0tnREtkcGJ1M1dTVk9HN3JuZUxnXzE2NzEwMTA1MDM6MTY3MTAxNDEwM19WNA)
+<img src="https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/2c593f99-bc20-45bf-b5df-01300fa5ef4d.jpeg" alt="2c593f99-bc20-45bf-b5df-01300fa5ef4d" style="zoom:50%;" />
 
 #### 11.3 生成容器
 
@@ -467,8 +469,4 @@ $ docker container cp [containID]:[/path/to/file] .
 
 
 Done!
-
-进一步实践，参考：
-
-* [Docker进阶：step by step](notes/hands-on-docker_2.md)
 
