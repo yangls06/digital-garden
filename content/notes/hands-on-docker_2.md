@@ -8,7 +8,13 @@ weight: -5
 
 # Docker进阶：step by step
 
+## 0. 参考
+
 [Docker 微服务教程](https://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html)
+
+前置教程：
+
+* [Docker入门：step by step](notes/hands-on-docker_1.md)
 
 ### 一、预备工作：image 仓库的镜像网址
 
