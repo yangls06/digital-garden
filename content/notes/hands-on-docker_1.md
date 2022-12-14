@@ -3,8 +3,6 @@ title: "Docker入门教程"
 tags:
 - docker
 weight: -5
-
-
 ---
 
 
@@ -469,4 +467,8 @@ $ docker container cp [containID]:[/path/to/file] .
 
 
 Done!
+
+进一步实践，参考：
+
+* [Docker进阶：step by step](notes/hands-on-docker_2.md)
 
