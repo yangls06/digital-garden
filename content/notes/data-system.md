@@ -12,4 +12,4 @@ weight: -5
 
 ## Data Exploring & Visualization
 
-* [Hands on Zeppelin](notes/hands-on-Zeppelin.md)
+* [Hands on Zeppelin](notes/hands-on-zeppelin.md)
