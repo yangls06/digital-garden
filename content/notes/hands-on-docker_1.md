@@ -119,7 +119,7 @@ docker run hello-world
 docker run -it ubuntu bash
 ```
 
-![img](https://j0tzfdufdk.feishu.cn/space/api/box/stream/download/asynccode/?code=NjFiOWIzZjQyNzU5M2FjNzk1OWE4MDJiOWQ4NjZiNDdfcUVQVEZMMzJoaUpIbmR3MHMwd1pmU0VhT0RGU002elNfVG9rZW46Ym94Y251TVdWN2hQV2VFY2gzT0ZQWFJGNjNlXzE2NzEwMTA1MDM6MTY3MTAxNDEwM19WNA)
+<img src="https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/dcc8d661-5b86-4c2b-9cc3-e50e6a34719e.jpeg" alt="dcc8d661-5b86-4c2b-9cc3-e50e6a34719e" style="zoom:50%;" />
 
 其中下载的image大小是30MB
 
