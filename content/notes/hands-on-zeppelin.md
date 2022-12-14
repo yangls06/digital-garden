@@ -1,7 +1,8 @@
 ---
 title: "Hands on Zeppelin"
 tags:
-- data, zeppelin
+- data
+- zeppelin
 weight: -5
 
 ---

@@ -1,7 +1,8 @@
 ---
 title: "Hands on Flask"
 tags:
-- python,flask
+- python
+- flask
 weight: -5
 ---
 
