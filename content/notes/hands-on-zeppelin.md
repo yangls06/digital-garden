@@ -1,20 +1,30 @@
-# Hands on Zepplin: Step by Step
+---
+title: "Hands on Zeppelin"
+tags:
+- data, zeppelin
+weight: -5
 
-> In order to build a data playground enabling the engineers to explore data collected by autonomous cars, I am trying to deploy Apache Zepplin as a component of data platform.
+---
+
+
+
+# Hands on Zeppelin: Step by Step
+
+> In order to build a data playground enabling the engineers to explore data collected by autonomous cars, I am trying to deploy Apache Zeppelin as a component of data platform.
 
 ## Introduction
 
-[Apache Zepplin](https://zeppelin.apache.org/) is: "Web-based notebook that enables data-driven,
+[Apache Zeppelin](https://zeppelin.apache.org/) is: "Web-based notebook that enables data-driven,
 interactive data analytics and collaborative documents with SQL, Scala, Python, R and more."
 
 
 
 ## Install
 
-According to [installation document](https://zeppelin.apache.org/docs/0.10.0/quickstart/install.html), I choose to install Zepplin using the offical docker on a server (http://10.10.32.4):
+According to [installation document](https://zeppelin.apache.org/docs/0.10.0/quickstart/install.html), I choose to install Zeppelin using the offical docker on a server (http://10.10.32.4):
 
 ```sh
-$ mkdir zepplin & cd zepplin
+$ mkdir Zeppelin & cd Zeppelin
 $ docker run -u $(id -u) -p 8080:8080 --rm -v $PWD/logs:/logs -v $PWD/notebook:/notebook \
            -e ZEPPELIN_LOG_DIR='/logs' -e ZEPPELIN_NOTEBOOK_DIR='/notebook' \
            --name zeppelin apache/zeppelin:0.10.0
@@ -69,7 +79,7 @@ $ docker run -u $(id -u) -p 8080:8080 --rm -v $PWD/logs:/logs -v $PWD/notebook:/
 
 
 
-Then visit http://10.10.32.4:8080/ to use Zepplin.
+Then visit http://10.10.32.4:8080/ to use Zeppelin.
 
 ![image-20221213165658796](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221213165658796.png)
 

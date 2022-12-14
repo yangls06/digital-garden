@@ -1,7 +1,7 @@
 ---
-title: "Flask上手"
+title: "Hands on Flask"
 tags:
-- setup
+- python,flask
 weight: -5
 ---
 

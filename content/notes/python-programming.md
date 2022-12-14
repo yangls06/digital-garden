@@ -1,7 +1,7 @@
 ---
 title: "Python Programming"
 tags:
-- setup
+- python
 weight: -5
 ---
 

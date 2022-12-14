@@ -1,5 +1,15 @@
+---
+title: "Data System"
+tags:
+- data
+weight: -5
+
+---
+
+
+
 # Data System
 
 ## Data Exploring & Visualization
 
-* [Hands on zepplin](notes/hands-on-zepplin.md)
+* [Hands on Zeppelin](notes/hands-on-Zeppelin.md)
