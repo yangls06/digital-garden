@@ -1155,3 +1155,89 @@ edit
 
 
 Great!
+
+
+
+### Step 9. Make the Project Installable
+
+#### Describe the Project
+
+In order to make the project Installabe, write a `setup.py` file to describe the project and its dependencies.
+
+```python
+from setuptools import find_packages, setup
+
+setup(
+    name='flaskr',
+    version='1.0.0',
+    description='a simple blog post app based on Flask',
+    packages=find_packages(),
+    include_package_data=True,
+    requires=[
+        'flask'
+    ]
+)
+```
+
+Tips:
+
+* `packages` tells Python what package directories to include, and `find_packages()` function finds them automatically.
+* To include other files, such as the static and templates directories, `include_package_data` is set. 
+* `requires` tells what modules need to be installed as the project's dependencies.
+* Python needs another file named `MANIFEST.in` to tell what this other data is.
+
+
+
+File `MANIFEST.in`
+
+```
+include flaskr/schema.sql
+graft flaskr/static
+graft flaskr/templates
+global-exclude *.pyc
+```
+
+This tells Python to copy everything in the `static` and `templates` directories, and the `schema.sql` file, but to exclude all bytecode files.
+
+
+
+#### Install the Project
+
+Use pip to install your project in the virtual environment.
+
+```shell
+$ pip install -e .
+Looking in indexes: https://pypi.douban.com/simple
+Obtaining file:///Users/yangls06/work/flask/flask-tutorial/flaskr
+  Preparing metadata (setup.py) ... done
+Installing collected packages: flaskr
+  Running setup.py develop for flaskr
+Successfully installed flaskr-1.0.0
+```
+
+This tells pip to find `setup.py` in the current directory and install it in *editable* or *development* mode. 
+
+Editable mode means that as you make changes to your local code, you’ll only need to re-install if you change the metadata about the project, such as its dependencies.
+
+
+
+You can observe that the project is now installed with `pip list`.
+
+```shell
+$ pip list
+Package            Version Editable project location
+------------------ ------- ------------------------------------------------
+click              8.1.3
+Flask              2.2.2
+flaskr             1.0.0   /Users/yangls06/work/flask/flask-tutorial/flaskr
+importlib-metadata 5.1.0
+itsdangerous       2.1.2
+Jinja2             3.1.2
+MarkupSafe         2.1.1
+pip                22.3.1
+setuptools         58.1.0
+Werkzeug           2.2.2
+zipp               3.11.0
+```
+
+Nothing changes from how you’ve been running your project so far. `--app` is still set to `flaskr` and `flask run` still runs the application, but you can call it from **anywhere**, not just the `flask-tutorial` directory.

@@ -119,7 +119,7 @@ All interpreters are here:
 
 ![image-20221214154255076](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221214154255076.png)
 
-## Add a SQL interpreter
+## Add a SQL Interpreter (for ADB)
 
 In order to access data in mysql, add a SQL interpreter:
 
@@ -156,6 +156,77 @@ Remember to add dependencies to locate the jar used to run the mysql driver:
 Then I can access the data in mysql using sql like this:
 
 ![image-20221214171612554](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221214171612554.png)
+
+
+
+## Add MySQL Interpreter
+
+![image-20221215144609848](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221215144609848.png)
+
+The dependency should rather be `mysql:mysql-connector-java:5.1.44` than `5.1.41` used before, because 
+
+[java.sql.SQLException: Unknown system variable 'query_cache_size'](https://stackoverflow.com/questions/49984267/java-sql-sqlexception-unknown-system-variable-query-cache-size)
+
+> `query_cache_size` was removed in MySQL 8. Check the [docs](https://dev.mysql.com/doc/refman/5.7/en/query-cache.html).
+>
+> It works with JDBC driver 5.1.44.
+
+![image-20221215170718539](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221215170718539.png)
+
+If `mysql:mysql-connector-java:5.1.41` is used, `query_cache_size` error will be raised.
+
+<img src="https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221215171148557.png" alt="image-20221215171148557" style="zoom:50%;" />
+
+
+
+Then you can access the data in mysql db:
+
+![image-20221215171439961](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221215171439961.png)
+
+## Store Zeppelin Notes to GitLab Repo
+
+[How To: Store Zeppelin Notes in GitHub repo](https://community.cloudera.com/t5/Community-Articles/How-To-Store-Zeppelin-Notes-in-GitHub-repo/ta-p/247398)
+
+You can set the local dir for Zeppelin notes to be a git repo and use Zeppelin's version control feature to manage versions of a notes.
+
+Add a new version and commit
+
+![image-20221215110158669](https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221215110158669.png)
+
+<img src="https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221215110238902.png" alt="image-20221215110238902" style="zoom:50%;" />
+
+Then `git log` will show the history of version:
+
+```bash
+git log
+commit 1f029d8073928a3a9e67e7728cd293472595d94a (HEAD -> master)
+Author: zeppelin <zeppelin@cffe349e8d4c>
+Date:   Thu Dec 15 03:03:04 2022 +0000
+
+    add dist stat
+
+commit 836ca519affbc28ac97d998676b060f826b6073b (origin/master)
+Author: zeppelin <zeppelin@cffe349e8d4c>
+Date:   Thu Dec 15 02:43:25 2022 +0000
+
+    test
+
+commit a24ac32075750272a696cb0641693ff0040290ab
+Author: zeppelin <zeppelin@cffe349e8d4c>
+Date:   Thu Dec 15 01:40:06 2022 +0000
+
+    test
+
+commit f26c7f85d4b36a59bb7ec79152cbfc389c907a68
+Author: zeppelin <zeppelin@cffe349e8d4c>
+Date:   Wed Dec 14 09:17:09 2022 +0000
+
+    Move note 2HPWKGXXY from test_note_of_zeppelin_2HPWKGXXY.zpln to 数据访问demo_2HPWKGXXY.zpln
+```
+
+Use `git push` to push local version to remote repo.
+
+
 
 ## Q&A (with ChatGPT on Zeppelin)
 
