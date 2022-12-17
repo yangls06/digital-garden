@@ -1,0 +1,1264 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="Data Structure Basics in Python  This article records my practices on python data structures.
+ 0. References See:
+  https://realpython."><title>Data Structure Basics in Python</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://yangls06.github.io/digital-garden//icon.png><link href=https://yangls06.github.io/digital-garden/styles.708c2658f93e3a9d323a1f9fded8f4b2.min.css rel=stylesheet><link href=https://yangls06.github.io/digital-garden/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://yangls06.github.io/digital-garden/js/darkmode.aa0630d04550405b827df945275af6c3.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script src=https://yangls06.github.io/digital-garden/js/popover.9b72b70bd35617d0635e9d15463662b2.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const BASE_URL="https://yangls06.github.io/digital-garden/",fetchData=Promise.all([fetch("https://yangls06.github.io/digital-garden/indices/linkIndex.6ec40daa1cd7c6f95c4bada3228d8c6e.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://yangls06.github.io/digital-garden/indices/contentIndex.8bc839d5ff514747e471ebb7e131bb80.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://yangls06.github.io/digital-garden",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://yangls06.github.io/digital-garden",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/yangls06.github.io\/digital-garden\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ32FS7YEX"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-GQ32FS7YEX",{anonymize_ip:!1})}</script><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://yangls06.github.io/digital-garden/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://yangls06.github.io/digital-garden/>🪴 无人之路</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><h1>Data Structure Basics in Python</h1><p class=meta>Last updated
+Dec 17, 2022
+<a href=https://github.com/yangls06/digital-garden/tree/hugo/content/notes/python-data-structure-basics.md rel=noopener>Edit Source</a></p><ul class=tags><li><a href=https://yangls06.github.io/digital-garden/tags/python/>Python</a></li><li><a href=https://yangls06.github.io/digital-garden/tags/data-structure/>Data structure</a></li></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#0-references>0. References</a></li><li><a href=#part-1-dictionaries-maps-hashtables>Part 1: Dictionaries, Maps, HashTables</a><ol><li><a href=#dict-your-go-to-dictionary>dict: Your Go-To Dictionary</a></li><li><a href=#collectionsordereddict-remember-the-insertion-order-of-keys>collections.OrderedDict: Remember the Insertion Order of Keys</a></li><li><a href=#collectionsdefaultdict-return-default-values-for-missing-keys>collections.defaultdict: Return Default Values for Missing Keys</a></li><li><a href=#collectionschainmap-search-multiple-dictionaries-as-a-single-mapping>collections.ChainMap: Search Multiple Dictionaries as a Single Mapping</a></li><li><a href=#typesmappingproxytype-a-wrapper-for-making-read-only-dictionaries>types.MappingProxyType: A Wrapper for Making Read-Only Dictionaries</a></li></ol></li><li><a href=#part-2-array-data-structures>Part 2: Array Data Structures</a><ol><li><a href=#list-mutable-dynamic-arrays>list: Mutable Dynamic Arrays</a></li><li><a href=#tuple-immutable-containers>tuple: Immutable Containers</a></li><li><a href=#arrayarray-basic-typed-arrays>array.array: Basic Typed Arrays</a></li><li><a href=#str-immutable-arrays-of-unicode-characters>str: Immutable Arrays of Unicode Characters</a></li><li><a href=#bytes-immutable-arrays-of-single-bytes>bytes: Immutable Arrays of Single Bytes</a></li><li><a href=#bytearray-mutable-arrays-of-single-bytes>bytearray: Mutable Arrays of Single Bytes</a></li></ol></li><li><a href=#arrays-in-python-summary>Arrays in Python: Summary</a></li><li><a href=#part-3-records-structs-and-data-transfer-objects>Part 3. Records, Structs, and Data Transfer Objects</a><ol><li><a href=#dict-simple-data-objects>dict: Simple Data Objects</a></li><li><a href=#tuple-immutable-groups-of-objects>tuple: Immutable Groups of Objects</a></li><li><a href=#write-a-custom-class-more-work-more-control>Write a Custom Class: More Work, More Control</a></li><li><a href=#dataclassesdataclass-python-37-data-classes>dataclasses.dataclass: Python 3.7+ Data Classes</a></li><li><a href=#collectionsnamedtuple-convenient-data-objects>collections.namedtuple: Convenient Data Objects</a></li><li><a href=#typingnamedtuple-improved-namedtuples>typing.NamedTuple: Improved Namedtuples</a></li><li><a href=#structstruct-serialized-c-structs>struct.Struct: Serialized C Structs</a></li><li><a href=#typessimplenamespace-fancy-attribute-access>types.SimpleNamespace: Fancy Attribute Access</a></li></ol></li><li><a href=#records-structs-and-data-objects-in-python-summary>Records, Structs, and Data Objects in Python: Summary</a></li><li><a href=#part-4-sets-and-multisets>Part 4. Sets and Multisets</a><ol><li><a href=#set-your-go-to-set>set: Your Go-To Set</a></li><li><a href=#frozenset-immutable-sets>frozenset: Immutable Sets</a></li><li><a href=#collectionscounter-multisets>collections.Counter: Multisets</a></li><li><a href=#sets-and-multisets-in-python-summary>Sets and Multisets in Python: Summary</a></li></ol></li><li><a href=#part-5-stacks-lifos>Part 5. Stacks (LIFOs)</a><ol><li><a href=#list-simple-built-in-stacks>list: Simple, Built-In Stacks</a></li><li><a href=#collectionsdeque-fast-and-robust-stacks>collections.deque: Fast and Robust Stacks</a></li><li><a href=#queuelifoqueue-locking-semantics-for-parallel-computing>queue.LifoQueue: Locking Semantics for Parallel Computing</a></li></ol></li><li><a href=#stack-implementations-in-python-summary>Stack Implementations in Python: Summary</a></li><li><a href=#part-6-queues-fifos>Part 6. Queues (FIFOs)</a><ol><li><a href=#list-terribly-sloooow-queues>list: Terribly Sloooow Queues</a></li><li><a href=#collectionsdeque-fast-and-robust-queues>collections.deque: Fast and Robust Queues</a></li><li><a href=#queuequeue-locking-semantics-for-parallel-computing>queue.Queue: Locking Semantics for Parallel Computing</a></li><li><a href=#multiprocessingqueue-shared-job-queues>multiprocessing.Queue: Shared Job Queues</a></li></ol></li><li><a href=#queues-in-python-summary>Queues in Python: Summary</a></li><li><a href=#part-7-priority-queues>Part 7. Priority Queues</a><ol><li><a href=#list-manually-sorted-queues>list: Manually Sorted Queues</a></li><li><a href=#heapq-list-based-binary-heaps>heapq: List-Based Binary Heaps</a></li><li><a href=#queuepriorityqueue-beautiful-priority-queues>queue.PriorityQueue: Beautiful Priority Queues</a></li></ol></li><li><a href=#priority-queues-in-python-summary>Priority Queues in Python: Summary</a></li></ol></nav></details></aside><a href=#data-structure-basics-in-python><h1 id=data-structure-basics-in-python><span class=hanchor arialabel=Anchor># </span>Data Structure Basics in Python</h1></a><blockquote><p>This article records my practices on python data structures.</p></blockquote><a href=#0-references><h2 id=0-references><span class=hanchor arialabel=Anchor># </span>0. References</h2></a><p>See:</p><ol><li><a href=https://realpython.com/python-data-structures/ rel=noopener>https://realpython.com/python-data-structures/</a></li><li><a href=https://www.geeksforgeeks.org/python-collections-module/#ordereddict rel=noopener>https://www.geeksforgeeks.org/python-collections-module/#ordereddict</a></li><li><a href=https://docs.python.org/3/library/collections.html#collections.OrderedDict rel=noopener>https://docs.python.org/3/library/collections.html#collections.OrderedDict</a></li></ol><p>The following code snippets are initially run in jupyter notebook.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>%</span><span class=n>autosave</span> <span class=mi>10</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Autosaving every 10 seconds
+</code></pre><a href=#part-1-dictionaries-maps-hashtables><h2 id=part-1-dictionaries-maps-hashtables><span class=hanchor arialabel=Anchor># </span>Part 1: Dictionaries, Maps, HashTables</h2></a><a href=#dict-your-go-to-dictionary><h3 id=dict-your-go-to-dictionary><span class=hanchor arialabel=Anchor># </span>dict: Your Go-To Dictionary</h3></a><p>Because dictionaries are so important, Python features a robust dictionary implementation that’s built directly into the core language: the dict data type.</p><p>Python also provides some useful syntactic sugar for working with dictionaries in your programs. For example, the curly-brace ({ }) dictionary expression syntax and dictionary comprehensions allow you to conveniently define new dictionary objects:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>phonebook</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;bob&#39;</span><span class=p>:</span><span class=mi>7387</span><span class=p>,</span> <span class=s1>&#39;alice&#39;</span><span class=p>:</span><span class=mi>3719</span><span class=p>,</span> <span class=s1>&#39;jack&#39;</span><span class=p>:</span><span class=mi>7052</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>squres</span> <span class=o>=</span> <span class=p>{</span><span class=n>x</span><span class=p>:</span> <span class=n>x</span><span class=o>*</span><span class=n>x</span> <span class=k>for</span> <span class=n>x</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>6</span><span class=p>)}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>phonebook</span><span class=p>[</span><span class=s1>&#39;alice&#39;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>squres</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>3719
+{0: 0, 1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+</code></pre><p>Notes:</p><ol><li>Python dict&rsquo;s keys: hashable objects which have hash values that never change during its life time.</li><li>Dictionaries are highly optimized and underlie many parts of the language. For example, class attributes and variables in a stack frame are both stored internally in dictionaries.</li><li>Performance: O(1) time complexity for lookup, insert, update, and delete operations in the average case</li><li>Hash table implementation</li></ol><p>Besides plain <em>dict</em> objects, Python’s standard library also includes a number of specialized dictionary implementations. These specialized dictionaries are all <em>based on the built-in dictionary class</em> (and share its performance characteristics) but also include some additional convenience features.</p><a href=#collectionsordereddict-remember-the-insertion-order-of-keys><h3 id=collectionsordereddict-remember-the-insertion-order-of-keys><span class=hanchor arialabel=Anchor># </span>collections.OrderedDict: Remember the Insertion Order of Keys</h3></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>collections</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>d</span> <span class=o>=</span> <span class=n>collections</span><span class=o>.</span><span class=n>OrderedDict</span><span class=p>(</span><span class=n>one</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=n>two</span><span class=o>=</span><span class=mi>2</span><span class=p>,</span> <span class=n>three</span><span class=o>=</span><span class=mi>3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>d</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>OrderedDict([('one', 1), ('two', 2), ('three', 3)])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>d</span><span class=p>[</span><span class=s1>&#39;four&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=o>.</span><span class=n>keys</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>odict_keys(['one', 'two', 'three', 'four'])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># remove and insert</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s1>&#39;Before Deleting&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>key</span><span class=p>,</span> <span class=n>val</span> <span class=ow>in</span> <span class=n>d</span><span class=o>.</span><span class=n>items</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>key</span><span class=p>,</span> <span class=n>val</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># delete an element</span>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=s1>&#39;one&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># re-insert the same</span>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=p>[</span><span class=s1>&#39;one&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># remove and insert</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>After Re-inserting&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>key</span><span class=p>,</span> <span class=n>val</span> <span class=ow>in</span> <span class=n>d</span><span class=o>.</span><span class=n>items</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>key</span><span class=p>,</span> <span class=n>val</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Before Deleting
+one 1
+two 2
+three 3
+four 4
+
+After Re-inserting
+two 2
+three 3
+four 4
+one 1
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>## popitem(): popitem(last=True)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># pop last</span>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=n>d</span><span class=o>.</span><span class=n>popitem</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>p</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>('one', 1)
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># pop first</span>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=n>d</span><span class=o>.</span><span class=n>popitem</span><span class=p>(</span><span class=n>last</span><span class=o>=</span><span class=kc>False</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>p</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>('two', 2)
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>## move_to_end(key, last=True) </span>
+</span></span><span class=line><span class=cl><span class=c1># Move an existing key to either end of an ordered dictionary. The item is moved to the right end if last is true (the default) or to the beginning if last is false. Raises KeyError if the key does not exist:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=p>[</span><span class=s1>&#39;one&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=p>[</span><span class=s1>&#39;two&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>2</span>
+</span></span><span class=line><span class=cl><span class=n>d</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>OrderedDict([('three', 3), ('four', 4), ('one', 1), ('two', 2)])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>d</span><span class=o>.</span><span class=n>move_to_end</span><span class=p>(</span><span class=s1>&#39;four&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>d</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>OrderedDict([('three', 3), ('one', 1), ('two', 2), ('four', 4)])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>d</span><span class=o>.</span><span class=n>move_to_end</span><span class=p>(</span><span class=s1>&#39;one&#39;</span><span class=p>,</span> <span class=n>last</span><span class=o>=</span><span class=kc>False</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>d</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>OrderedDict([('one', 1), ('three', 3), ('two', 2), ('four', 4)])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>## reversed()</span>
+</span></span><span class=line><span class=cl><span class=c1># Python reversed() method returns an iterator that accesses the given sequence in the reverse order.</span>
+</span></span><span class=line><span class=cl><span class=c1># https://www.programiz.com/python-programming/methods/built-in/reversed</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>key</span><span class=p>,</span> <span class=n>val</span> <span class=ow>in</span> <span class=n>d</span><span class=o>.</span><span class=n>items</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>key</span><span class=p>,</span> <span class=n>val</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>reversed&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>key</span><span class=p>,</span> <span class=n>val</span> <span class=ow>in</span> <span class=nb>reversed</span><span class=p>(</span><span class=n>d</span><span class=o>.</span><span class=n>items</span><span class=p>()):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>key</span><span class=p>,</span> <span class=n>val</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>one 1
+three 3
+two 2
+four 4
+
+reversed
+four 4
+two 2
+three 3
+one 1
+</code></pre><a href=#collectionsdefaultdict-return-default-values-for-missing-keys><h3 id=collectionsdefaultdict-return-default-values-for-missing-keys><span class=hanchor arialabel=Anchor># </span>collections.defaultdict: Return Default Values for Missing Keys</h3></a><p>The defaultdict class is another dictionary subclass that accepts a callable in its constructor whose return value will be used if a requested key cannot be found.</p><p>This can save you some typing and make your intentions clearer as compared to using get() or catching a KeyError exception in regular dictionaries:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>collections</span> <span class=kn>import</span> <span class=n>defaultdict</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>## use list() as default value function</span>
+</span></span><span class=line><span class=cl><span class=n>dd</span> <span class=o>=</span> <span class=n>defaultdict</span><span class=p>(</span><span class=nb>list</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Accessing a missing key creates it and initializes it using the default factory, i.e. list() in this example.</span>
+</span></span><span class=line><span class=cl><span class=n>dd</span><span class=p>[</span><span class=s1>&#39;dogs&#39;</span><span class=p>]</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;Rufus&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>dd</span><span class=p>[</span><span class=s1>&#39;dogs&#39;</span><span class=p>]</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;Kathrin&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>dd</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>defaultdict(list, {'dogs': ['Rufus', 'Kathrin']})
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>dd</span><span class=p>[</span><span class=s1>&#39;dogs&#39;</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>['Rufus', 'Kathrin']
+</code></pre><a href=#collectionschainmap-search-multiple-dictionaries-as-a-single-mapping><h3 id=collectionschainmap-search-multiple-dictionaries-as-a-single-mapping><span class=hanchor arialabel=Anchor># </span>collections.ChainMap: Search Multiple Dictionaries as a Single Mapping</h3></a><p>The collections.ChainMap data structure groups multiple dictionaries into a single mapping. Lookups search the underlying mappings one by one until a key is found. Insertions, updates, and deletions only affect the first mapping added to the chain:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>collections</span> <span class=kn>import</span> <span class=n>ChainMap</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>dict1</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;one&#39;</span><span class=p>:</span><span class=mi>1</span><span class=p>,</span> <span class=s1>&#39;two&#39;</span><span class=p>:</span><span class=mi>2</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>dict2</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;three&#39;</span><span class=p>:</span><span class=mi>3</span><span class=p>,</span> <span class=s1>&#39;four&#39;</span><span class=p>:</span><span class=mi>4</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>chain</span> <span class=o>=</span> <span class=n>ChainMap</span><span class=p>(</span><span class=n>dict1</span><span class=p>,</span> <span class=n>dict2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>chain</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>ChainMap({'one': 1, 'two': 2}, {'three': 3, 'four': 4})
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>chain map&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>key</span><span class=p>,</span> <span class=n>val</span> <span class=ow>in</span> <span class=n>chain</span><span class=o>.</span><span class=n>items</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>key</span><span class=p>,</span> <span class=n>val</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>chain map
+three 3
+four 4
+one 1
+two 2
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># add new</span>
+</span></span><span class=line><span class=cl><span class=n>dict3</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;five&#39;</span><span class=p>:</span><span class=mi>5</span><span class=p>,</span> <span class=s1>&#39;six&#39;</span><span class=p>:</span><span class=mi>6</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>chain</span><span class=o>.</span><span class=n>new_child</span><span class=p>(</span><span class=n>dict3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>chain</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>ChainMap({'one': 1, 'two': 2}, {'three': 3, 'four': 4})
+</code></pre><a href=#typesmappingproxytype-a-wrapper-for-making-read-only-dictionaries><h3 id=typesmappingproxytype-a-wrapper-for-making-read-only-dictionaries><span class=hanchor arialabel=Anchor># </span>types.MappingProxyType: A Wrapper for Making Read-Only Dictionaries</h3></a><p>MappingProxyType is a wrapper around a standard dictionary that provides a read-only view into the wrapped dictionary’s data. This class was added in Python 3.3 and can be used to create immutable proxy versions of dictionaries.</p><p>MappingProxyType can be helpful if, for example, you’d like to return a dictionary carrying internal state from a class or module while discouraging write access to this object. Using MappingProxyType allows you to put these restrictions in place without first having to create a full copy of the dictionary:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>types</span> <span class=kn>import</span> <span class=n>MappingProxyType</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>writable</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;one&#39;</span><span class=p>:</span><span class=mi>1</span><span class=p>,</span> <span class=s1>&#39;two&#39;</span><span class=p>:</span><span class=mi>2</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>read_only</span> <span class=o>=</span> <span class=n>MappingProxyType</span><span class=p>(</span><span class=n>writable</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># The proxy is read-only:</span>
+</span></span><span class=line><span class=cl><span class=n>read_only</span><span class=p>[</span><span class=s1>&#39;one&#39;</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>1
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>read_only</span><span class=p>[</span><span class=s1>&#39;one&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-28-11d9e8a8c63d&gt; in &lt;module&gt;
+----&gt; 1 read_only['one'] = 1
+
+
+TypeError: 'mappingproxy' object does not support item assignment
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Updates to the original are reflected in the proxy:</span>
+</span></span><span class=line><span class=cl><span class=n>writable</span><span class=p>[</span><span class=s1>&#39;one&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>42</span>
+</span></span><span class=line><span class=cl><span class=n>read_only</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>mappingproxy({'one': 42, 'two': 2})
+</code></pre><a href=#part-2-array-data-structures><h2 id=part-2-array-data-structures><span class=hanchor arialabel=Anchor># </span>Part 2: Array Data Structures</h2></a><p>An array is a fundamental data structure available in most programming languages, and it has a wide range of uses across different algorithms.</p><p>In this section, you’ll take a look at array implementations in Python that use only core language features or functionality that’s included in the Python standard library. You’ll see the strengths and weaknesses of each approach so you can decide which implementation is right for your use case.</p><p>But before we jump in, let’s cover some of the basics first. How do arrays work, and what are they used for? Arrays consist of fixed-size data records that allow each element to be efficiently located based on its index:</p><p>Visual representation of an array
+Because arrays store information in adjoining blocks of memory, they’re considered contiguous data structures (as opposed to linked data structures like linked lists, for example).</p><p>A real-world analogy for an array data structure is a parking lot. You can look at the parking lot as a whole and treat it as a single object, but inside the lot there are parking spots indexed by a unique number. Parking spots are containers for vehicles—each parking spot can either be empty or have a car, a motorbike, or some other vehicle parked on it.</p><p>But not all parking lots are the same. Some parking lots may be restricted to only one type of vehicle. For example, a motor home parking lot wouldn’t allow bikes to be parked on it. A restricted parking lot corresponds to a typed array data structure that allows only elements that have the same data type stored in them.</p><p>Performance-wise, it’s very fast to look up an element contained in an array given the element’s index. A proper array implementation guarantees a constant O(1) access time for this case.</p><p>Python includes several array-like data structures in its standard library that each have slightly different characteristics. Let’s take a look.</p><p><img src=https://files.realpython.com/media/python-linked-list-array-visualization.5b9f4c4040cb.jpeg width=auto alt=Array></p><a href=#list-mutable-dynamic-arrays><h3 id=list-mutable-dynamic-arrays><span class=hanchor arialabel=Anchor># </span>list: Mutable Dynamic Arrays</h3></a><p>Lists are a part of the core Python language. Despite their name, Python’s lists are implemented as dynamic arrays behind the scenes.</p><p>This means a list allows elements to be added or removed, and the list will automatically adjust the backing store that holds these elements by allocating or releasing memory.</p><p>Python lists can hold arbitrary elements—everything is an object in Python, including functions. Therefore, you can mix and match different kinds of data types and store them all in a single list.</p><p>This can be a powerful feature, but the downside is that supporting multiple data types at the same time means that data is generally less tightly packed. As a result, the whole structure takes up more space:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;one&#39;</span><span class=p>,</span> <span class=s1>&#39;two&#39;</span><span class=p>,</span> <span class=s1>&#39;three&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'one'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># lists have a nice repr</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>['one', 'two', 'three']
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># lists are mutable</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=s1>&#39;hello&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span> 
+</span></span></code></pre></td></tr></table></div></div><pre><code>['one', 'hello', 'three']
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>del</span> <span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>['one', 'three']
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># lists can hold arbitrary data types</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=mi>2333</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>['one', 'three', 2333]
+</code></pre><a href=#tuple-immutable-containers><h3 id=tuple-immutable-containers><span class=hanchor arialabel=Anchor># </span>tuple: Immutable Containers</h3></a><p>Just like lists, tuples are part of the Python core language. Unlike lists, however, Python’s tuple objects are immutable. This means elements can’t be added or removed dynamically—all elements in a tuple must be defined at creation time.</p><p>Tuples are another data structure that can hold elements of arbitrary data types. Having this flexibility is powerful, but again, it also means that data is less tightly packed than it would be in a typed array:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span> <span class=o>=</span> <span class=p>(</span><span class=s1>&#39;one&#39;</span><span class=p>,</span> <span class=s1>&#39;two&#39;</span><span class=p>,</span> <span class=s1>&#39;three&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'one'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>('one', 'two', 'three')
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Tuples are immutable</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;hello&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-5-2f27284d12dc&gt; in &lt;module&gt;
+      1 # Tuples are immutable
+----&gt; 2 arr[1] = &quot;hello&quot;
+
+
+TypeError: 'tuple' object does not support item assignment
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>del</span> <span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-6-df001b61e2e0&gt; in &lt;module&gt;
+----&gt; 1 del arr[1]
+
+
+TypeError: 'tuple' object doesn't support item deletion
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Tuples can hold arbitrary data types:</span>
+</span></span><span class=line><span class=cl><span class=c1># (Adding elements creates a copy of the tuple)</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span> <span class=o>+</span> <span class=p>(</span><span class=mi>23</span><span class=p>,)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>('one', 'two', 'three', 23)
+</code></pre><a href=#arrayarray-basic-typed-arrays><h3 id=arrayarray-basic-typed-arrays><span class=hanchor arialabel=Anchor># </span>array.array: Basic Typed Arrays</h3></a><p>Python’s array module provides space-efficient storage of basic C-style data types like bytes, 32-bit integers, floating-point numbers, and so on.</p><p>Arrays created with the array.array class are mutable and behave similarly to lists except for one important difference: they’re typed arrays constrained to a single data type.</p><p>Because of this constraint, array.array objects with many elements are more space efficient than lists and tuples. The elements stored in them are tightly packed, and this can be useful if you need to store many elements of the same type.</p><p>Also, arrays support many of the same methods as regular lists, and you might be able to use them as a drop-in replacement without requiring other changes to your application code.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>array</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>arr</span> <span class=o>=</span> <span class=n>array</span><span class=o>.</span><span class=n>array</span><span class=p>(</span><span class=s1>&#39;f&#39;</span><span class=p>,</span> <span class=p>(</span><span class=mf>1.0</span><span class=p>,</span> <span class=mf>1.5</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>,</span> <span class=mf>2.5</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>1.5
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>array('f', [1.0, 1.5, 2.0, 2.5])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Arrays are mutable</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=mf>23.0</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>array('f', [1.0, 23.0, 2.0, 2.5])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>del</span> <span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>array('f', [1.0, 2.0, 2.5])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=mf>42.0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>array('f', [1.0, 2.0, 2.5, 42.0])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Arrays are &#34;typed&#34;:</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;hello&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-14-d4d93891e8c0&gt; in &lt;module&gt;
+      1 # Arrays are &quot;typed&quot;:
+----&gt; 2 arr[1] = &quot;hello&quot;
+
+
+TypeError: must be real number, not str
+</code></pre><a href=#str-immutable-arrays-of-unicode-characters><h3 id=str-immutable-arrays-of-unicode-characters><span class=hanchor arialabel=Anchor># </span>str: Immutable Arrays of Unicode Characters</h3></a><p>Python 3.x uses str objects to store textual data as immutable sequences of Unicode characters. Practically speaking, that means a str is an immutable array of characters. Oddly enough, it’s also a recursive data structure—each character in a string is itself a str object of length 1.</p><p>String objects are space efficient because they’re tightly packed and they specialize in a single data type. If you’re storing Unicode text, then you should use a string.</p><p>Because strings are immutable in Python, modifying a string requires creating a modified copy. The closest equivalent to a mutable string is storing individual characters inside a list:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span> <span class=o>=</span> <span class=s2>&#34;abcd&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'b'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>type</span><span class=p>(</span><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>str
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Strings are immutable:</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=s1>&#39;e&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-3-2e0d5fa2424f&gt; in &lt;module&gt;
+      1 # Strings are immutable:
+----&gt; 2 arr[1] = 'e'
+
+
+TypeError: 'str' object does not support item assignment
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>del</span> <span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-4-df001b61e2e0&gt; in &lt;module&gt;
+----&gt; 1 del arr[1]
+
+
+TypeError: 'str' object doesn't support item deletion
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Strings can be unpacked into a list to get a mutable representation:</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span> <span class=o>=</span> <span class=nb>list</span><span class=p>(</span><span class=s1>&#39;abcd&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=s1>&#39;,&#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>arr</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'a,b,c,d'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Strings are recursive data structures:</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span> <span class=o>=</span> <span class=s2>&#34;abcd&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>type</span><span class=p>(</span><span class=s1>&#39;arr&#39;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>str
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>type</span><span class=p>(</span><span class=n>arr</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>str
+</code></pre><a href=#bytes-immutable-arrays-of-single-bytes><h3 id=bytes-immutable-arrays-of-single-bytes><span class=hanchor arialabel=Anchor># </span>bytes: Immutable Arrays of Single Bytes</h3></a><p>bytes objects are immutable sequences of single bytes, or integers in the range 0 ≤ x ≤ 255. Conceptually, bytes objects are similar to str objects, and you can also think of them as immutable arrays of bytes.</p><p>Like strings, bytes have their own literal syntax for creating objects and are space efficient. bytes objects are immutable, but unlike strings, there’s a dedicated mutable byte array data type called bytearray that they can be unpacked into:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span> <span class=o>=</span> <span class=nb>bytes</span><span class=p>((</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>1
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Bytes literals have their own syntax:</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>b'\x00\x01\x02\x03'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span> <span class=o>=</span> <span class=sa>b</span><span class=s2>&#34;</span><span class=se>\x00\x01\x02\x03</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>b'\x00\x01\x02\x03'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Only valid `bytes` are allowed:</span>
+</span></span><span class=line><span class=cl><span class=nb>bytes</span><span class=p>((</span><span class=mi>0</span><span class=p>,</span> <span class=mi>300</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+ValueError                                Traceback (most recent call last)
+
+&lt;ipython-input-13-f644e09a09b0&gt; in &lt;module&gt;
+      1 # Only valid `bytes` are allowed:
+----&gt; 2 bytes((0, 300))
+
+
+ValueError: bytes must be in range(0, 256)
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Bytes are immutable:</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=mi>23</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-15-714056f42f40&gt; in &lt;module&gt;
+      1 # Bytes are immutable:
+----&gt; 2 arr[1] = 23
+
+
+TypeError: 'bytes' object does not support item assignment
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>del</span> <span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-16-df001b61e2e0&gt; in &lt;module&gt;
+----&gt; 1 del arr[1]
+
+
+TypeError: 'bytes' object doesn't support item deletion
+</code></pre><a href=#bytearray-mutable-arrays-of-single-bytes><h3 id=bytearray-mutable-arrays-of-single-bytes><span class=hanchor arialabel=Anchor># </span>bytearray: Mutable Arrays of Single Bytes</h3></a><p>The bytearray type is a mutable sequence of integers in the range 0 ≤ x ≤ 255. The bytearray object is closely related to the bytes object, with the main difference being that a bytearray can be modified freely—you can overwrite elements, remove existing elements, or add new ones. The bytearray object will grow and shrink accordingly.</p><p>A bytearray can be converted back into immutable bytes objects, but this involves copying the stored data in full—a slow operation taking O(n) time:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>%</span><span class=n>autosave</span> <span class=mi>5</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Autosaving every 5 seconds
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span> <span class=o>=</span> <span class=nb>bytearray</span><span class=p>((</span><span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>0
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>bytearray(b'\x00\x01\x02\x03\x04')
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Bytearrays are mutable:</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=mi>23</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>bytearray(b'\x00\x17\x02\x03\x04')
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>del</span> <span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=mi>42</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>bytearray(b'\x00\x02\x03\x04*')
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Bytearrays can only hold `bytes` (integers in the range 0 &lt;= x &lt;= 255)</span>
+</span></span><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=s1>&#39;Hello&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-7-42a4439943a8&gt; in &lt;module&gt;
+      1 # Bytearrays can only hold `bytes` (integers in the range 0 &lt;= x &lt;= 255)
+----&gt; 2 arr[1] = 'Hello'
+
+
+TypeError: 'str' object cannot be interpreted as an integer
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>arr</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=mi>300</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+ValueError                                Traceback (most recent call last)
+
+&lt;ipython-input-8-6088e2f482e7&gt; in &lt;module&gt;
+----&gt; 1 arr[1] = 300
+
+
+ValueError: byte must be in range(0, 256)
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Bytearrays can be converted back into bytes objects:</span>
+</span></span><span class=line><span class=cl><span class=c1># (This will copy the data)</span>
+</span></span><span class=line><span class=cl><span class=nb>bytes</span><span class=p>(</span><span class=n>arr</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>b'\x00\x02\x03\x04*'
+</code></pre><a href=#arrays-in-python-summary><h2 id=arrays-in-python-summary><span class=hanchor arialabel=Anchor># </span>Arrays in Python: Summary</h2></a><p>If you want to restrict yourself to the array data structures included with Python, then here are a few guidelines:</p><ul><li><p>If you need to store arbitrary objects, potentially with mixed data types, then use a list or a tuple, depending on whether or not you want an immutable data structure.</p></li><li><p>If you have numeric (integer or floating-point) data and tight packing and performance is important, then try out array.array.</p></li><li><p>If you have textual data represented as Unicode characters, then use Python’s built-in str. If you need a mutable string-like data structure, then use a list of characters.</p></li><li><p>If you want to store a contiguous block of bytes, then use the immutable bytes type or a bytearray if you need a mutable data structure.</p></li></ul><p>In most cases, I like to start out with a simple list. I’ll only specialize later on if performance or storage space becomes an issue. Most of the time, using a general-purpose array data structure like list gives you the fastest development speed and the most programming convenience.</p><a href=#part-3-records-structs-and-data-transfer-objects><h2 id=part-3-records-structs-and-data-transfer-objects><span class=hanchor arialabel=Anchor># </span>Part 3. Records, Structs, and Data Transfer Objects</h2></a><p>Compared to arrays, record data structures provide a fixed number of fields. Each field can have a name and may also have a different type.</p><p>In this section, you’ll see how to implement records, structs, and plain old data objects in Python using only built-in data types and classes from the standard library.</p><blockquote><p>Note: I’m using the definition of a record loosely here. For example, I’m also going to discuss types like Python’s built-in tuple that may or may not be considered records in a strict sense because they don’t provide named fields.</p></blockquote><p>Python offers several data types that you can use to implement records, structs, and data transfer objects. In this section, you’ll get a quick look at each implementation and its unique characteristics. At the end, you’ll find a summary and a decision-making guide that will help you make your own picks.</p><a href=#dict-simple-data-objects><h3 id=dict-simple-data-objects><span class=hanchor arialabel=Anchor># </span>dict: Simple Data Objects</h3></a><p>As mentioned previously, Python dictionaries store an arbitrary number of objects, each identified by a unique key. Dictionaries are also often called maps or associative arrays and allow for efficient lookup, insertion, and deletion of any object associated with a given key.</p><p>Using dictionaries as a record data type or data object in Python is possible. Dictionaries are easy to create in Python as they have their own syntactic sugar built into the language in the form of dictionary literals. The dictionary syntax is concise and quite convenient to type.</p><p>Data objects created using dictionaries are mutable, and there’s little protection against misspelled field names as fields can be added and removed freely at any time. Both of these properties can introduce surprising bugs, and there’s always a trade-off to be made between convenience and error resilience:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>car1</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;color&#39;</span><span class=p>:</span><span class=s1>&#39;red&#39;</span><span class=p>,</span> <span class=s1>&#39;mileage&#39;</span><span class=p>:</span><span class=mi>3824</span><span class=p>,</span> <span class=s1>&#39;automatic&#39;</span><span class=p>:</span><span class=kc>True</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;color&#39;</span><span class=p>:</span><span class=s1>&#39;blue&#39;</span><span class=p>,</span> <span class=s1>&#39;mileage&#39;</span><span class=p>:</span><span class=mi>40231</span><span class=p>,</span> <span class=s1>&#39;automatic&#39;</span><span class=p>:</span><span class=kc>False</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{'color': 'blue', 'mileage': 40231, 'automatic': False}
+</code></pre><a href=#tuple-immutable-groups-of-objects><h3 id=tuple-immutable-groups-of-objects><span class=hanchor arialabel=Anchor># </span>tuple: Immutable Groups of Objects</h3></a><p>Python’s tuples are a straightforward data structure for grouping arbitrary objects. Tuples are immutable—they can’t be modified once they’ve been created.</p><p>Performance-wise, tuples take up slightly less memory than lists in CPython, and they’re also faster to construct.</p><p>As you can see in the bytecode disassembly below, constructing a tuple constant takes a single LOAD_CONST opcode, while constructing a list object with the same contents requires several more operations:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># dis — Disassembler for Python bytecode</span>
+</span></span><span class=line><span class=cl><span class=c1># The dis module supports the analysis of CPython bytecode by disassembling it. The CPython bytecode which this module takes as an input is defined in the file Include/opcode.h and used by the compiler and the interpreter.</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>dis</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>dis</span><span class=o>.</span><span class=n>dis</span><span class=p>(</span><span class=nb>compile</span><span class=p>(</span><span class=s2>&#34;(23, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;)&#34;</span><span class=p>,</span> <span class=s2>&#34;&#34;</span><span class=p>,</span> <span class=s2>&#34;eval&#34;</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>  1           0 LOAD_CONST               0 ((23, 'a', 'b', 'c'))
+              2 RETURN_VALUE
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>dis</span><span class=o>.</span><span class=n>dis</span><span class=p>(</span><span class=nb>compile</span><span class=p>(</span><span class=s2>&#34;[23, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;]&#34;</span><span class=p>,</span> <span class=s2>&#34;&#34;</span><span class=p>,</span> <span class=s2>&#34;eval&#34;</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>  1           0 LOAD_CONST               0 (23)
+              2 LOAD_CONST               1 ('a')
+              4 LOAD_CONST               2 ('b')
+              6 LOAD_CONST               3 ('c')
+              8 BUILD_LIST               4
+             10 RETURN_VALUE
+</code></pre><p>However, you shouldn’t place too much emphasis on these differences. In practice, the performance difference will often be negligible, and trying to squeeze extra performance out of a program by switching from lists to tuples will likely be the wrong approach.</p><p>A potential downside of plain tuples is that the data you store in them can only be pulled out by accessing it through integer indexes. You can’t give names to individual properties stored in a tuple. This can impact code readability.</p><p>Also, a tuple is always an ad-hoc structure: it’s difficult to ensure that two tuples have the same number of fields and the same properties stored in them.</p><p>This makes it easy to introduce slip-of-the-mind bugs, such as mixing up the field order. Therefore, I would recommend that you keep the number of fields stored in a tuple as low as possible:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>car1</span> <span class=o>=</span> <span class=p>(</span><span class=s2>&#34;red&#34;</span><span class=p>,</span> <span class=mf>3812.4</span><span class=p>,</span> <span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span> <span class=o>=</span> <span class=p>(</span><span class=s2>&#34;blue&#34;</span><span class=p>,</span> <span class=mf>40231.0</span><span class=p>,</span> <span class=kc>False</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>car1</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>('red', 3812.4, True)
+</code></pre><a href=#write-a-custom-class-more-work-more-control><h3 id=write-a-custom-class-more-work-more-control><span class=hanchor arialabel=Anchor># </span>Write a Custom Class: More Work, More Control</h3></a><p>Classes allow you to define reusable blueprints for data objects to ensure each object provides the same set of fields.</p><p>Using regular Python classes as record data types is feasible, but it also takes manual work to get the convenience features of other implementations. For example, adding new fields to the <strong>init</strong> constructor is verbose and takes time.</p><p>Also, the default string representation for objects instantiated from custom classes isn’t very helpful. To fix that, you may have to add your own <strong>repr</strong> method, which again is usually quite verbose and must be updated each time you add a new field.</p><p>Fields stored on classes are mutable, and new fields can be added freely, which you may or may not like. It’s possible to provide more access control and to create read-only fields using the @property decorator, but once again, this requires writing more glue code.</p><p>Writing a custom class is a great option whenever you’d like to add business logic and behavior to your record objects using methods. However, this means that these objects are technically no longer plain data objects:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Car</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>color</span><span class=p>,</span> <span class=n>mileage</span><span class=p>,</span> <span class=n>automatic</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>color</span> <span class=o>=</span> <span class=n>color</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>mileage</span> <span class=o>=</span> <span class=n>mileage</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>automatic</span> <span class=o>=</span> <span class=n>automatic</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>car1</span> <span class=o>=</span> <span class=n>Car</span><span class=p>(</span><span class=s1>&#39;red&#39;</span><span class=p>,</span> <span class=mf>3812.4</span><span class=p>,</span> <span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span> <span class=o>=</span> <span class=n>Car</span><span class=p>(</span><span class=s1>&#39;blue&#39;</span><span class=p>,</span> <span class=mf>40231.4</span><span class=p>,</span> <span class=kc>False</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>car2</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>&lt;__main__.Car at 0x7ff72e066ca0&gt;
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Get the mileage:</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span><span class=o>.</span><span class=n>mileage</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>40231.4
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Classes are mutable:</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span><span class=o>.</span><span class=n>mileage</span> <span class=o>=</span> <span class=mi>12</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span><span class=o>.</span><span class=n>windshield</span> <span class=o>=</span> <span class=s1>&#39;broken&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#dataclassesdataclass-python-37-data-classes><h3 id=dataclassesdataclass-python-37-data-classes><span class=hanchor arialabel=Anchor># </span>dataclasses.dataclass: Python 3.7+ Data Classes</h3></a><p>Data classes are available in Python 3.7 and above. They provide an excellent alternative to defining your own data storage classes from scratch.</p><p>By writing a data class instead of a plain Python class, your object instances get a few useful features out of the box that will save you some typing and manual implementation work:</p><p>The syntax for defining instance variables is shorter, since you don’t need to implement the .<strong>init</strong>() method.
+Instances of your data class automatically get nice-looking string representation via an auto-generated .<strong>repr</strong>() method.
+Instance variables accept type annotations, making your data class self-documenting to a degree. Keep in mind that type annotations are just hints that are not enforced without a separate type-checking tool.
+Data classes are typically created using the @dataclass decorator, as you’ll see in the code example below:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>dataclasses</span> <span class=kn>import</span> <span class=n>dataclass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@dataclass</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Car</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>color</span><span class=p>:</span> <span class=nb>str</span>
+</span></span><span class=line><span class=cl>    <span class=n>mileage</span><span class=p>:</span> <span class=nb>float</span>
+</span></span><span class=line><span class=cl>    <span class=n>automatic</span><span class=p>:</span> <span class=nb>bool</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>car1</span> <span class=o>=</span> <span class=n>Car</span><span class=p>(</span><span class=s1>&#39;red&#39;</span><span class=p>,</span> <span class=mf>3812.4</span><span class=p>,</span> <span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span> <span class=o>=</span> <span class=n>Car</span><span class=p>(</span><span class=s1>&#39;blue&#39;</span><span class=p>,</span> <span class=mf>40231.4</span><span class=p>,</span> <span class=kc>False</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Instances have a nice repr:</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Car(color='blue', mileage=40231.4, automatic=False)
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Accessing fields:</span>
+</span></span><span class=line><span class=cl><span class=n>car1</span><span class=o>.</span><span class=n>mileage</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>3812.4
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Fields are mutable:</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span><span class=o>.</span><span class=n>mileage</span> <span class=o>=</span> <span class=mi>12</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span><span class=o>.</span><span class=n>windshield</span> <span class=o>=</span> <span class=s1>&#39;broken&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>car2</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Car(color='blue', mileage=12, automatic=False)
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Type annotations are not enforced without a separate type checking tool like mypy</span>
+</span></span><span class=line><span class=cl><span class=n>Car</span><span class=p>(</span><span class=s2>&#34;red&#34;</span><span class=p>,</span> <span class=s2>&#34;NOT_A_FLOAT&#34;</span><span class=p>,</span> <span class=mi>99</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Car(color='red', mileage='NOT_A_FLOAT', automatic=99)
+</code></pre><a href=#collectionsnamedtuple-convenient-data-objects><h3 id=collectionsnamedtuple-convenient-data-objects><span class=hanchor arialabel=Anchor># </span>collections.namedtuple: Convenient Data Objects</h3></a><p>The namedtuple class available in Python 2.6+ provides an extension of the built-in tuple data type. Similar to defining a custom class, using namedtuple allows you to define reusable blueprints for your records that ensure the correct field names are used.</p><p>namedtuple objects are immutable, just like regular tuples. This means you can’t add new fields or modify existing fields after the namedtuple instance is created.</p><p>Besides that, namedtuple objects are, well . . . named tuples. Each object stored in them can be accessed through a unique identifier. This frees you from having to remember integer indexes or resort to workarounds like defining integer constants as mnemonics for your indexes.</p><p>namedtuple objects are implemented as regular Python classes internally. When it comes to memory usage, they’re also better than regular classes and just as memory efficient as regular tuples:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>collections</span> <span class=kn>import</span> <span class=n>namedtuple</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>sys</span> <span class=kn>import</span> <span class=n>getsizeof</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>p1</span> <span class=o>=</span> <span class=n>namedtuple</span><span class=p>(</span><span class=s1>&#39;Point&#39;</span><span class=p>,</span> <span class=s1>&#39;x y z&#39;</span><span class=p>)(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>p2</span> <span class=o>=</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>p1</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Point(x=1, y=2, z=3)
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>p1</span><span class=o>.</span><span class=n>x</span><span class=p>,</span> <span class=n>p1</span><span class=o>.</span><span class=n>y</span><span class=p>,</span> <span class=n>p1</span><span class=o>.</span><span class=n>z</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>(1, 2, 3)
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>getsizeof</span><span class=p>(</span><span class=n>p1</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>64
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>getsizeof</span><span class=p>(</span><span class=n>p2</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>64
+</code></pre><p>namedtuple objects can be an <strong>easy way to clean up your code and make it more readable</strong> by enforcing a better structure for your data.</p><p>I find that going from ad-hoc data types like dictionaries with a fixed format to namedtuple objects helps me to express the intent of my code more clearly. Often when I apply this refactoring, I magically come up with a better solution for the problem I’m facing.</p><p>Using namedtuple objects over regular (unstructured) tuples and dicts can also make your coworkers’ lives easier by making the data that’s being passed around self-documenting, at least to a degree:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>Car</span> <span class=o>=</span> <span class=n>namedtuple</span><span class=p>(</span><span class=s1>&#39;Car&#39;</span><span class=p>,</span> <span class=s1>&#39;color mileage automatic&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>car1</span> <span class=o>=</span> <span class=n>Car</span><span class=p>(</span><span class=s1>&#39;red&#39;</span><span class=p>,</span> <span class=mf>3812.4</span><span class=p>,</span> <span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span> <span class=o>=</span> <span class=n>Car</span><span class=p>(</span><span class=s1>&#39;blue&#39;</span><span class=p>,</span> <span class=mf>40231.4</span><span class=p>,</span> <span class=kc>False</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>car2</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Car(color='blue', mileage=40231.4, automatic=False)
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>type</span><span class=p>(</span><span class=n>car1</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>__main__.Car
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Fields are immtuable:</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span><span class=o>.</span><span class=n>mileage</span> <span class=o>=</span> <span class=mi>12</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+AttributeError                            Traceback (most recent call last)
+
+&lt;ipython-input-39-f7f9c602e34d&gt; in &lt;module&gt;
+      1 # Fields are immtuable:
+----&gt; 2 car2.mileage = 12
+
+
+AttributeError: can't set attribute
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>car2</span><span class=o>.</span><span class=n>windshield</span> <span class=o>=</span> <span class=s2>&#34;broken&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+AttributeError                            Traceback (most recent call last)
+
+&lt;ipython-input-40-72bb797ed6af&gt; in &lt;module&gt;
+----&gt; 1 car2.windshield = &quot;broken&quot;
+
+
+AttributeError: 'Car' object has no attribute 'windshield'
+</code></pre><a href=#typingnamedtuple-improved-namedtuples><h3 id=typingnamedtuple-improved-namedtuples><span class=hanchor arialabel=Anchor># </span>typing.NamedTuple: Improved Namedtuples</h3></a><p>Added in Python 3.6, typing.NamedTuple is the younger sibling of the namedtuple class in the collections module. It’s very similar to namedtuple, with the main difference being an updated syntax for defining new record types and added support for type hints.</p><p>Please note that type annotations are not enforced without a separate type-checking tool like mypy. But even without tool support, they can provide useful hints for other programmers (or be terribly confusing if the type hints become out of date):</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>typing</span> <span class=kn>import</span> <span class=n>NamedTuple</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Car</span><span class=p>(</span><span class=n>NamedTuple</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>color</span><span class=p>:</span> <span class=nb>str</span>
+</span></span><span class=line><span class=cl>    <span class=n>mileage</span><span class=p>:</span> <span class=nb>float</span>
+</span></span><span class=line><span class=cl>    <span class=n>automatic</span><span class=p>:</span> <span class=nb>bool</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>car1</span> <span class=o>=</span> <span class=n>Car</span><span class=p>(</span><span class=s1>&#39;red&#39;</span><span class=p>,</span> <span class=mf>3812.4</span><span class=p>,</span> <span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>car2</span> <span class=o>=</span> <span class=n>Car</span><span class=p>(</span><span class=s1>&#39;blue&#39;</span><span class=p>,</span> <span class=mf>40231.4</span><span class=p>,</span> <span class=kc>False</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>car2</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Car(color='blue', mileage=40231.4, automatic=False)
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Fields are immutable:</span>
+</span></span><span class=line><span class=cl><span class=n>car1</span><span class=o>.</span><span class=n>mileage</span> <span class=o>=</span> <span class=mi>12</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+AttributeError                            Traceback (most recent call last)
+
+&lt;ipython-input-42-144528f7cc7a&gt; in &lt;module&gt;
+      1 # Fields are immutable:
+----&gt; 2 car1.mileage = 12
+
+
+AttributeError: can't set attribute
+</code></pre><a href=#structstruct-serialized-c-structs><h3 id=structstruct-serialized-c-structs><span class=hanchor arialabel=Anchor># </span>struct.Struct: Serialized C Structs</h3></a><p>The struct.Struct class converts between Python values and C structs serialized into Python bytes objects. For example, it can be used to handle binary data stored in files or coming in from network connections.</p><p>Structs are defined using a mini language based on format strings that allows you to define the arrangement of various C data types like char, int, and long as well as their unsigned variants.</p><p>Serialized structs are seldom used to represent data objects meant to be handled purely inside Python code. They’re intended primarily as a <strong>data exchange format</strong> rather than as a way of holding data in memory that’s only used by Python code.</p><p>In some cases, packing primitive data into structs may use less memory than keeping it in other data types. However, in most cases that would be quite an advanced (and probably unnecessary) optimization:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>struct</span> <span class=kn>import</span> <span class=n>Struct</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>MyStruct</span> <span class=o>=</span> <span class=n>Struct</span><span class=p>(</span><span class=s1>&#39;i?f&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>data</span> <span class=o>=</span> <span class=n>MyStruct</span><span class=o>.</span><span class=n>pack</span><span class=p>(</span><span class=mi>23</span><span class=p>,</span> <span class=kc>False</span><span class=p>,</span> <span class=mf>42.0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># All you get is a blob of data:</span>
+</span></span><span class=line><span class=cl><span class=n>data</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>b'\x17\x00\x00\x00\x00\x00\x00\x00\x00\x00(B'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>MyStruct</span><span class=o>.</span><span class=n>unpack</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>(23, False, 42.0)
+</code></pre><a href=#typessimplenamespace-fancy-attribute-access><h3 id=typessimplenamespace-fancy-attribute-access><span class=hanchor arialabel=Anchor># </span>types.SimpleNamespace: Fancy Attribute Access</h3></a><p>Here’s one more slightly obscure choice for implementing data objects in Python: types.SimpleNamespace. This class was added in Python 3.3 and provides attribute access to its namespace.</p><p>This means SimpleNamespace instances expose all of their keys as class attributes. You can use obj.key dotted attribute access instead of the obj[&lsquo;key&rsquo;] square-bracket indexing syntax that’s used by regular dicts. All instances also include a meaningful <strong>repr</strong> by default.</p><p>As its name proclaims, SimpleNamespace is simple! It’s basically a dictionary that allows attribute access and prints nicely. Attributes can be added, modified, and deleted freely:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>types</span> <span class=kn>import</span> <span class=n>SimpleNamespace</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>car1</span> <span class=o>=</span> <span class=n>SimpleNamespace</span><span class=p>(</span><span class=n>color</span><span class=o>=</span><span class=s2>&#34;red&#34;</span><span class=p>,</span> <span class=n>mileage</span><span class=o>=</span><span class=mf>3812.4</span><span class=p>,</span> <span class=n>automatic</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>car1</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>namespace(color='red', mileage=3812.4, automatic=True)
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Instances support attribute access and are mutable:</span>
+</span></span><span class=line><span class=cl><span class=n>car1</span><span class=o>.</span><span class=n>mileage</span> <span class=o>=</span> <span class=mi>12</span>
+</span></span><span class=line><span class=cl><span class=n>car1</span><span class=o>.</span><span class=n>windshield</span> <span class=o>=</span> <span class=s2>&#34;broken&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>del</span> <span class=n>car1</span><span class=o>.</span><span class=n>automatic</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>car1</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>namespace(color='red', mileage=12, windshield='broken')
+</code></pre><a href=#records-structs-and-data-objects-in-python-summary><h2 id=records-structs-and-data-objects-in-python-summary><span class=hanchor arialabel=Anchor># </span>Records, Structs, and Data Objects in Python: Summary</h2></a><p>As you’ve seen, there’s quite a number of different options for implementing records or data objects. Which type should you use for data objects in Python? Generally your decision will depend on your use case:</p><ul><li><p>If you have only a few fields, then using a plain tuple object may be okay if the field order is easy to remember or field names are superfluous. For example, think of an (x, y, z) point in three-dimensional space.</p></li><li><p>If you need immutable fields, then plain tuples, collections.namedtuple, and typing.NamedTuple are all good options.</p></li><li><p>If you need to lock down field names to avoid typos, then collections.namedtuple and typing.NamedTuple are your friends.</p></li><li><p>If you want to keep things simple, then a plain dictionary object might be a good choice due to the convenient syntax that closely resembles JSON.</p></li><li><p>If you need full control over your data structure, then it’s time to write a custom class with @property setters and getters.</p></li><li><p>If you need to add behavior (methods) to the object, then you should write a custom class, either from scratch, or using the dataclass decorator, or by extending collections.namedtuple or typing.NamedTuple.</p></li><li><p>If you need to pack data tightly to serialize it to disk or to send it over the network, then it’s time to read up on struct.Struct because this is a great use case for it!</p></li></ul><p>If you’re looking for a safe default choice, then my general recommendation for implementing a plain record, struct, or data object in Python would be to use collections.namedtuple in Python 2.x and its younger sibling, typing.NamedTuple in Python 3.</p><a href=#part-4-sets-and-multisets><h2 id=part-4-sets-and-multisets><span class=hanchor arialabel=Anchor># </span>Part 4. Sets and Multisets</h2></a><p>In this section, you’ll see how to implement mutable and immutable set and multiset (bag) data structures in Python using built-in data types and classes from the standard library.</p><p>A set is an unordered collection of objects that doesn’t allow duplicate elements. Typically, sets are used to quickly test a value for membership in the set, to insert or delete new values from a set, and to compute the union or intersection of two sets.</p><p>In a proper set implementation, membership tests are expected to run in fast <strong>O(1)</strong> time. Union, intersection, difference, and subset operations should take O(n) time on average. The set implementations included in Python’s standard library follow these performance characteristics.</p><p>Just like dictionaries, sets get special treatment in Python and have some syntactic sugar that makes them easy to create. For example, the curly-brace set expression syntax and set comprehensions allow you to conveniently define new set instances:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>vowels</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;a&#39;</span><span class=p>,</span> <span class=s1>&#39;e&#39;</span><span class=p>,</span> <span class=s1>&#39;i&#39;</span><span class=p>,</span> <span class=s1>&#39;o&#39;</span><span class=p>,</span> <span class=s1>&#39;u&#39;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>squares</span> <span class=o>=</span> <span class=p>{</span><span class=n>x</span> <span class=o>*</span> <span class=n>x</span> <span class=k>for</span> <span class=n>x</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>10</span><span class=p>)}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>vowels</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>squares</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{'e', 'a', 'i', 'o', 'u'}
+{0, 1, 64, 4, 36, 9, 16, 49, 81, 25}
+</code></pre><p>But be careful: To create an empty set you’ll need to call the set() constructor. Using empty curly-braces ({}) is ambiguous and will create an empty dictionary instead.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># null set using set() instead of {}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>dict_empty</span> <span class=o>=</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl><span class=n>set_empty</span> <span class=o>=</span> <span class=nb>set</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>type</span><span class=p>(</span><span class=n>dict_empty</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>type</span><span class=p>(</span><span class=n>set_empty</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>&lt;class 'dict'&gt;
+&lt;class 'set'&gt;
+</code></pre><a href=#set-your-go-to-set><h3 id=set-your-go-to-set><span class=hanchor arialabel=Anchor># </span>set: Your Go-To Set</h3></a><p>The set type is the built-in set implementation in Python. It’s mutable and allows for the dynamic insertion and deletion of elements.</p><p>Python’s sets are backed by the dict data type and share the same performance characteristics. Any hashable object can be stored in a set:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>vowels</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;a&#39;</span><span class=p>,</span> <span class=s1>&#39;e&#39;</span><span class=p>,</span> <span class=s1>&#39;i&#39;</span><span class=p>,</span> <span class=s1>&#39;o&#39;</span><span class=p>,</span> <span class=s1>&#39;u&#39;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=s1>&#39;e&#39;</span> <span class=ow>in</span> <span class=n>vowels</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>True
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>letters</span> <span class=o>=</span> <span class=nb>set</span><span class=p>(</span><span class=s1>&#39;alice&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>letters</span><span class=o>.</span><span class=n>intersection</span><span class=p>(</span><span class=n>vowels</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{'a', 'e', 'i'}
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>vowels</span><span class=o>.</span><span class=n>difference</span><span class=p>(</span><span class=n>letters</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{'o', 'u'}
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>letters_copy</span> <span class=o>=</span> <span class=n>letters</span><span class=o>.</span><span class=n>copy</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>letters_copy</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{'a', 'c', 'e', 'i', 'l'}
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># The isdisjoint() method returns True if two sets are disjoint sets. If not, it returns False</span>
+</span></span><span class=line><span class=cl><span class=n>letters_copy</span><span class=o>.</span><span class=n>isdisjoint</span><span class=p>(</span><span class=n>vowels</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>False
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=err>!</span><span class=p>[</span><span class=n>disjoint</span><span class=p>](</span><span class=n>https</span><span class=p>:</span><span class=o>//</span><span class=n>cdn</span><span class=o>.</span><span class=n>programiz</span><span class=o>.</span><span class=n>com</span><span class=o>/</span><span class=n>sites</span><span class=o>/</span><span class=n>tutorial2program</span><span class=o>/</span><span class=n>files</span><span class=o>/</span><span class=n>python</span><span class=o>-</span><span class=n>disjoint</span><span class=o>-</span><span class=n>sets_0</span><span class=o>.</span><span class=n>png</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>zsh:1: unknown file attribute: h
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>letters_copy</span><span class=o>.</span><span class=n>issubset</span><span class=p>(</span><span class=n>letters</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>True
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>letters_copy</span><span class=o>.</span><span class=n>issuperset</span><span class=p>(</span><span class=n>letters</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>True
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># add elements</span>
+</span></span><span class=line><span class=cl><span class=n>vowels</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=s1>&#39;x&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>vowels</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{'a', 'e', 'i', 'o', 'u', 'x'}
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>vowels</span><span class=o>.</span><span class=n>union</span><span class=p>(</span><span class=n>letters</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{'a', 'c', 'e', 'i', 'l', 'o', 'u', 'x'}
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>len</span><span class=p>(</span><span class=n>vowels</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>6
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>vowels</span><span class=o>.</span><span class=n>discard</span><span class=p>(</span><span class=s1>&#39;x&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>vowels</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{'a', 'e', 'i', 'o', 'u'}
+</code></pre><a href=#frozenset-immutable-sets><h3 id=frozenset-immutable-sets><span class=hanchor arialabel=Anchor># </span>frozenset: Immutable Sets</h3></a><p>The frozenset class implements an immutable version of set that can’t be changed after it’s been constructed.</p><p>frozenset objects are static and allow only query operations on their elements, not inserts or deletions. Because frozenset objects are static and hashable, they can be used as dictionary keys or as elements of another set, something that isn’t possible with regular (mutable) set objects:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>fs</span> <span class=o>=</span> <span class=nb>frozenset</span><span class=p>({</span><span class=s1>&#39;a&#39;</span><span class=p>,</span> <span class=s1>&#39;e&#39;</span><span class=p>,</span> <span class=s1>&#39;i&#39;</span><span class=p>,</span> <span class=s1>&#39;o&#39;</span><span class=p>,</span> <span class=s1>&#39;u&#39;</span><span class=p>})</span>
+</span></span><span class=line><span class=cl><span class=n>fs</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>frozenset({'a', 'e', 'i', 'o', 'u'})
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>fs</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=s1>&#39;x&#39;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+AttributeError                            Traceback (most recent call last)
+
+&lt;ipython-input-67-cb5eaf111fad&gt; in &lt;module&gt;
+----&gt; 1 fs.add('x')
+
+
+AttributeError: 'frozenset' object has no attribute 'add'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Frozensets are hashable and can be used as dictionary keys:</span>
+</span></span><span class=line><span class=cl><span class=n>d</span> <span class=o>=</span> <span class=p>{</span><span class=nb>frozenset</span><span class=p>({</span><span class=s1>&#39;a&#39;</span><span class=p>,</span> <span class=s1>&#39;e&#39;</span><span class=p>,</span> <span class=s1>&#39;i&#39;</span><span class=p>,</span> <span class=s1>&#39;o&#39;</span><span class=p>,</span> <span class=s1>&#39;u&#39;</span><span class=p>}):</span><span class=s1>&#39;vowels&#39;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>d</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{frozenset({'a', 'e', 'i', 'o', 'u'}): 'vowels'}
+</code></pre><a href=#collectionscounter-multisets><h3 id=collectionscounter-multisets><span class=hanchor arialabel=Anchor># </span>collections.Counter: Multisets</h3></a><p>The collections.Counter class in the Python standard library implements a multiset, or bag, type that allows elements in the set to have more than one occurrence.</p><p>This is useful if you need to keep track of not only if an element is part of a set, but also how many times it’s included in the set:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>collections</span> <span class=kn>import</span> <span class=n>Counter</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>inventory</span> <span class=o>=</span> <span class=n>Counter</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>loot</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;sward&#39;</span><span class=p>:</span> <span class=mi>1</span><span class=p>,</span> <span class=s1>&#39;bread&#39;</span><span class=p>:</span> <span class=mi>3</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>inventory</span><span class=o>.</span><span class=n>update</span><span class=p>(</span><span class=n>loot</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>inventory</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Counter({'sward': 1, 'bread': 3})
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>more_loot</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;sward&#39;</span><span class=p>:</span> <span class=mi>2</span><span class=p>,</span> <span class=s1>&#39;apple&#39;</span><span class=p>:</span> <span class=mi>3</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>inventory</span><span class=o>.</span><span class=n>update</span><span class=p>(</span><span class=n>more_loot</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>inventory</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Counter({'sward': 3, 'bread': 3, 'apple': 3})
+</code></pre><p>One caveat for the Counter class is that you’ll want to be careful when counting the number of elements in a Counter object. Calling len() returns the number of unique elements in the multiset, whereas the total number of elements can be retrieved using sum():</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>len</span><span class=p>(</span><span class=n>inventory</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>3
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>sum</span><span class=p>(</span><span class=n>inventory</span><span class=o>.</span><span class=n>values</span><span class=p>())</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>9
+</code></pre><a href=#sets-and-multisets-in-python-summary><h3 id=sets-and-multisets-in-python-summary><span class=hanchor arialabel=Anchor># </span>Sets and Multisets in Python: Summary</h3></a><p>Sets are another useful and commonly used data structure included with Python and its standard library. Here are a few guidelines for deciding which one to use:</p><ul><li>If you need a mutable set, then use the built-in set type.</li><li>If you need hashable objects that can be used as dictionary or set keys, then use a frozenset.</li><li>If you need a multiset, or bag, data structure, then use collections.Counter.</li></ul><a href=#part-5-stacks-lifos><h2 id=part-5-stacks-lifos><span class=hanchor arialabel=Anchor># </span>Part 5. Stacks (LIFOs)</h2></a><p>A stack is a collection of objects that supports fast <strong>Last-In/First-Out (LIFO)</strong> semantics for inserts and deletes. Unlike lists or arrays, stacks typically don’t allow for random access to the objects they contain. The insert and delete operations are also often called <strong>push and pop</strong>.</p><p>A useful real-world analogy for a stack data structure is a stack of plates. New plates are added to the top of the stack, and because the plates are precious and heavy, only the topmost plate can be moved. In other words, the last plate on the stack must be the first one removed (LIFO). To reach the plates that are lower down in the stack, the topmost plates must be removed one by one.</p><p>Performance-wise, a proper stack implementation is expected to take O(1) time for insert and delete operations.</p><p>Stacks have a wide range of uses in algorithms. For example, they’re used in language parsing as well as runtime memory management, which relies on a call stack. A short and beautiful algorithm using a stack is depth-first search (DFS) on a tree or graph data structure.</p><p>Python ships with several stack implementations that each have slightly different characteristics. Let’s take a look at them and compare their characteristics.</p><a href=#list-simple-built-in-stacks><h3 id=list-simple-built-in-stacks><span class=hanchor arialabel=Anchor># </span>list: Simple, Built-In Stacks</h3></a><p>Python’s <strong>built-in list</strong> type makes a decent stack data structure as <strong>it supports push and pop operations in amortized O(1) time</strong>.</p><p>Python’s lists are implemented as dynamic arrays internally, which means they occasionally need to resize the storage space for elements stored in them when elements are added or removed. The list over-allocates its backing storage so that not every push or pop requires resizing. As a result, you get an amortized O(1) time complexity for these operations.</p><p>The downside is that this makes their performance less consistent than the stable O(1) inserts and deletes provided by a linked list–based implementation (as you’ll see below with collections.deque). On the other hand, lists do provide fast O(1) time random access to elements on the stack, and this can be an added benefit.</p><p>There’s an important performance caveat that you should be aware of when using lists as stacks: To get the amortized O(1) performance for inserts and deletes, new items must be added to the end of the list with the append() method and removed again from the end using pop(). For optimum performance, stacks based on Python lists should grow towards higher indexes and shrink towards lower ones.</p><p>Adding and removing from the front is much slower and takes O(n) time, as the existing elements must be shifted around to make room for the new element. This is a performance antipattern that you should avoid as much as possible:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;eat&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;sleep&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;code&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>s</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>['eat', 'sleep', 'code']
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>pop</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'code'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>pop</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'sleep'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>pop</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'eat'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>pop</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+IndexError                                Traceback (most recent call last)
+
+&lt;ipython-input-79-c88c8c48122b&gt; in &lt;module&gt;
+----&gt; 1 s.pop()
+
+
+IndexError: pop from empty list
+</code></pre><a href=#collectionsdeque-fast-and-robust-stacks><h3 id=collectionsdeque-fast-and-robust-stacks><span class=hanchor arialabel=Anchor># </span>collections.deque: Fast and Robust Stacks</h3></a><p>The deque class implements a double-ended queue that supports adding and removing elements from either end in O(1) time (non-amortized). Because deques support adding and removing elements from either end equally well, they can serve both as queues and as stacks.</p><p>Python’s deque objects are implemented as <strong>doubly-linked lists</strong>, which gives them excellent and consistent performance for inserting and deleting elements but poor O(n) performance for randomly accessing elements in the middle of a stack.</p><p>Overall, collections.deque is a great choice if you’re looking for a stack data structure in Python’s standard library that has the performance characteristics of a linked-list implementation:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>collections</span> <span class=kn>import</span> <span class=n>deque</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>s</span> <span class=o>=</span> <span class=n>deque</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;eat&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;sleep&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;code&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>s</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>deque(['eat', 'sleep', 'code'])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>pop</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'code'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>pop</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'sleep'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>pop</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'eat'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>pop</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+IndexError                                Traceback (most recent call last)
+
+&lt;ipython-input-84-c88c8c48122b&gt; in &lt;module&gt;
+----&gt; 1 s.pop()
+
+
+IndexError: pop from an empty deque
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>appendleft</span><span class=p>(</span><span class=s1>&#39;a&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>appendleft</span><span class=p>(</span><span class=s1>&#39;b&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>appendleft</span><span class=p>(</span><span class=s1>&#39;c&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>s</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>deque(['c', 'b', 'a'])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>popleft</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'c'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>popleft</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'b'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>popleft</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'a'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>appendleft</span><span class=p>(</span><span class=s1>&#39;a&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>appendleft</span><span class=p>(</span><span class=s1>&#39;b&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>appendleft</span><span class=p>(</span><span class=s1>&#39;c&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>s</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>deque(['c', 'b', 'a'])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>reverse</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>deque(['a', 'b', 'c'])
+</code></pre><a href=#queuelifoqueue-locking-semantics-for-parallel-computing><h3 id=queuelifoqueue-locking-semantics-for-parallel-computing><span class=hanchor arialabel=Anchor># </span>queue.LifoQueue: Locking Semantics for Parallel Computing</h3></a><p>The LifoQueue stack implementation in the Python standard library is synchronized and provides locking semantics to support multiple concurrent producers and consumers.</p><p>Besides LifoQueue, the queue module contains several other classes that implement multi-producer, multi-consumer queues that are useful for parallel computing.</p><p>Depending on your use case, the locking semantics might be helpful, or they might just incur unneeded overhead. In this case, you’d be better off using a list or a deque as a general-purpose stack:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>queue</span> <span class=kn>import</span> <span class=n>LifoQueue</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>s</span> <span class=o>=</span> <span class=n>LifoQueue</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>put</span><span class=p>(</span><span class=s1>&#39;eat&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>put</span><span class=p>(</span><span class=s1>&#39;sleep&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>put</span><span class=p>(</span><span class=s1>&#39;code&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>s</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>&lt;queue.LifoQueue at 0x7ff72efbcf70&gt;
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>get</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'code'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>get</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'sleep'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>get</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'eat'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>get_nowait</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>---------------------------------------------------------------------------
+
+Empty                                     Traceback (most recent call last)
+
+&lt;ipython-input-96-0bd7ad76be38&gt; in &lt;module&gt;
+----&gt; 1 s.get_nowait()
+
+
+~/opt/anaconda3/lib/python3.8/queue.py in get_nowait(self)
+    196         raise the Empty exception.
+    197         '''
+--&gt; 198         return self.get(block=False)
+    199 
+    200     # Override these methods to implement other queue organizations
+
+
+~/opt/anaconda3/lib/python3.8/queue.py in get(self, block, timeout)
+    165             if not block:
+    166                 if not self._qsize():
+--&gt; 167                     raise Empty
+    168             elif timeout is None:
+    169                 while not self._qsize():
+
+
+Empty: 
+</code></pre><a href=#stack-implementations-in-python-summary><h2 id=stack-implementations-in-python-summary><span class=hanchor arialabel=Anchor># </span>Stack Implementations in Python: Summary</h2></a><p>As you’ve seen, Python ships with several implementations for a stack data structure. All of them have slightly different characteristics as well as performance and usage trade-offs.</p><p>If you’re not looking for parallel processing support (or if you don’t want to handle locking and unlocking manually), then your choice comes down to the built-in list type or collections.deque. The difference lies in the data structure used behind the scenes and overall ease of use.</p><p>list is backed by a dynamic array, which makes it great for fast random access but requires occasional resizing when elements are added or removed.</p><p>The list over-allocates its backing storage so that not every push or pop requires resizing, and you get an amortized O(1) time complexity for these operations. But you do need to be careful to only insert and remove items using append() and pop(). Otherwise, performance slows down to O(n).</p><p>collections.deque is backed by a doubly-linked list, which optimizes appends and deletes at both ends and provides consistent O(1) performance for these operations. Not only is its performance more stable, the deque class is also easier to use because you don’t have to worry about adding or removing items from the wrong end.</p><p>In summary, collections.deque is an excellent choice for implementing a stack (LIFO queue) in Python.</p><a href=#part-6-queues-fifos><h2 id=part-6-queues-fifos><span class=hanchor arialabel=Anchor># </span>Part 6. Queues (FIFOs)</h2></a><p>In this section, you’ll see how to implement a <strong>First-In/First-Out (FIFO)</strong> queue data structure using only built-in data types and classes from the Python standard library.</p><p>A queue is a collection of objects that supports fast FIFO semantics for inserts and deletes. The insert and delete operations are sometimes called enqueue and dequeue. Unlike lists or arrays, queues typically don’t allow for random access to the objects they contain.</p><p>Here’s a real-world analogy for a FIFO queue:</p><p>Imagine a line of Pythonistas waiting to pick up their conference badges on day one of PyCon registration. As new people enter the conference venue and queue up to receive their badges, they join the line (enqueue) at the back of the queue. Developers receive their badges and conference swag bags and then exit the line (dequeue) at the front of the queue.</p><p>Another way to memorize the characteristics of a queue data structure is to think of it as a pipe. You add ping-pong balls to one end, and they travel to the other end, where you remove them. While the balls are in the queue (a solid metal pipe) you can’t get at them. The only way to interact with the balls in the queue is to add new ones at the back of the pipe (enqueue) or to remove them at the front (dequeue).</p><p>Queues are similar to stacks. The difference between them lies in how items are removed. With a queue, you remove the item least recently added (FIFO) but with a stack, you remove the item most recently added (LIFO).</p><p>Performance-wise, a proper queue implementation is expected to take O(1) time for insert and delete operations. These are the two main operations performed on a queue, and in a correct implementation, they should be fast.</p><p>Queues have a wide range of applications in algorithms and often help solve scheduling and parallel programming problems. A short and beautiful algorithm using a queue is breadth-first search (BFS) on a tree or graph data structure.</p><p>Scheduling algorithms often use priority queues internally. These are specialized queues. Instead of retrieving the next element by insertion time, a priority queue retrieves the highest-priority element. The priority of individual elements is decided by the queue based on the ordering applied to their keys.</p><p>A regular queue, however, won’t reorder the items it carries. Just like in the pipe example, you get out what you put in, and in exactly that order.</p><p>Python ships with several queue implementations that each have slightly different characteristics. Let’s review them.</p><a href=#list-terribly-sloooow-queues><h3 id=list-terribly-sloooow-queues><span class=hanchor arialabel=Anchor># </span>list: Terribly Sloooow Queues</h3></a><p>It’s possible to use a regular list as a queue, but this is not ideal from a performance perspective. <strong>Lists are quite slow for this purpose because inserting or deleting an element at the beginning requires shifting all the other elements by one, requiring O(n) time</strong>.</p><p>Therefore, I would <strong>not recommend</strong> using a list as a makeshift queue in Python unless you’re dealing with only a small number of elements:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;eat&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;sleep&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;code&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>['eat', 'sleep', 'code']
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'eat'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'sleep'
+</code></pre><a href=#collectionsdeque-fast-and-robust-queues><h3 id=collectionsdeque-fast-and-robust-queues><span class=hanchor arialabel=Anchor># </span>collections.deque: Fast and Robust Queues</h3></a><p>The deque class implements a double-ended queue that supports adding and removing elements from either end in O(1) time (non-amortized). Because deques support adding and removing elements from either end equally well, they can serve both as queues and as stacks.</p><p>Python’s deque objects are implemented as doubly-linked lists. This gives them excellent and consistent performance for inserting and deleting elements, but poor O(n) performance for randomly accessing elements in the middle of the stack.</p><p>As a result, collections.deque is a great default choice if you’re looking for a queue data structure in Python’s standard library:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>collections</span> <span class=kn>import</span> <span class=n>deque</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=n>deque</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;eat&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;sleep&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;code&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>deque(['eat', 'sleep', 'code'])
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>popleft</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'eat'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>popleft</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'sleep'
+</code></pre><a href=#queuequeue-locking-semantics-for-parallel-computing><h3 id=queuequeue-locking-semantics-for-parallel-computing><span class=hanchor arialabel=Anchor># </span>queue.Queue: Locking Semantics for Parallel Computing</h3></a><p>The queue.Queue implementation in the Python standard library is synchronized and provides locking semantics to support multiple concurrent producers and consumers.</p><p>The queue module contains several other classes implementing multi-producer, multi-consumer queues that are useful for parallel computing.</p><p>Depending on your use case, the locking semantics might be helpful or just incur unneeded overhead. In this case, you’d be better off using collections.deque as a general-purpose queue:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>queue</span> <span class=kn>import</span> <span class=n>Queue</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=n>Queue</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>put</span><span class=p>(</span><span class=s1>&#39;eat&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>put</span><span class=p>(</span><span class=s1>&#39;sleep&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>put</span><span class=p>(</span><span class=s1>&#39;code&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>&lt;queue.Queue at 0x7ff72f279130&gt;
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>get</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'eat'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>get</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'sleep'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>get_nowait</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'code'
+</code></pre><a href=#multiprocessingqueue-shared-job-queues><h3 id=multiprocessingqueue-shared-job-queues><span class=hanchor arialabel=Anchor># </span>multiprocessing.Queue: Shared Job Queues</h3></a><p>multiprocessing.Queue is a shared job queue implementation that allows queued items to be processed in parallel by multiple concurrent workers. Process-based parallelization is popular in CPython due to the global interpreter lock (GIL) that prevents some forms of parallel execution on a single interpreter process.</p><p>As a specialized queue implementation meant for sharing data between processes, multiprocessing.Queue makes it easy to distribute work across multiple processes in order to work around the GIL limitations. This type of queue can store and transfer any pickleable object across process boundaries:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>multiprocessing</span> <span class=kn>import</span> <span class=n>Queue</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=n>Queue</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>put</span><span class=p>(</span><span class=s1>&#39;eat&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>put</span><span class=p>(</span><span class=s1>&#39;sleep&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>put</span><span class=p>(</span><span class=s1>&#39;code&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>&lt;multiprocessing.queues.Queue at 0x7ff72efbe8b0&gt;
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>get</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'eat'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>get</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'sleep'
+</code></pre><a href=#queues-in-python-summary><h2 id=queues-in-python-summary><span class=hanchor arialabel=Anchor># </span>Queues in Python: Summary</h2></a><p>Python includes several queue implementations as part of the core language and its standard library.</p><p>list objects can be used as queues, but this is generally not recommended due to slow performance.</p><p>If you’re not looking for parallel processing support, then the implementation offered by <strong>collections.deque</strong> is an excellent default choice for implementing a FIFO queue data structure in Python. It provides the performance characteristics you’d expect from a good queue implementation and can also be used as a stack (LIFO queue).</p><a href=#part-7-priority-queues><h2 id=part-7-priority-queues><span class=hanchor arialabel=Anchor># </span>Part 7. Priority Queues</h2></a><p>A priority queue is a container data structure that manages a set of records with totally-ordered keys to provide quick access to the record with the smallest or largest key in the set.</p><p>You can think of a priority queue as a modified queue. Instead of retrieving the next element by insertion time, it retrieves the highest-priority element. The priority of individual elements is decided by the order applied to their keys.</p><p>Priority queues are commonly used for dealing with scheduling problems. For example, you might use them to give precedence to tasks with higher urgency.</p><p>Think about the job of an operating system task scheduler:</p><p>Ideally, higher-priority tasks on the system (such as playing a real-time game) should take precedence over lower-priority tasks (such as downloading updates in the background). By organizing pending tasks in a priority queue that uses task urgency as the key, the task scheduler can quickly select the highest-priority tasks and allow them to run first.</p><p>In this section, you’ll see a few options for how you can implement priority queues in Python using built-in data structures or data structures included in Python’s standard library. Each implementation will have its own upsides and downsides, but in my mind there’s a clear winner for most common scenarios. Let’s find out which one it is.</p><a href=#list-manually-sorted-queues><h3 id=list-manually-sorted-queues><span class=hanchor arialabel=Anchor># </span>list: Manually Sorted Queues</h3></a><p>You can use a sorted list to quickly identify and delete the smallest or largest element. The downside is that inserting new elements into a list is a slow O(n) operation.</p><p>While the insertion point can be found in O(log n) time using bisect.insort in the standard library, this is always dominated by the slow insertion step.</p><p>Maintaining the order by appending to the list and re-sorting also takes at least O(n log n) time. Another downside is that you must manually take care of re-sorting the list when new elements are inserted. It’s easy to introduce bugs by missing this step, and the burden is always on you, the developer.</p><p>This means sorted lists are only suitable as priority queues when there will be few insertions:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>append</span><span class=p>((</span><span class=mi>2</span><span class=p>,</span> <span class=s1>&#39;code&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>append</span><span class=p>((</span><span class=mi>1</span><span class=p>,</span> <span class=s1>&#39;eat&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>append</span><span class=p>((</span><span class=mi>3</span><span class=p>,</span> <span class=s1>&#39;sleep&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Remember to re-sort every time a new element is inserted, or use bisect.insort()</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>sort</span><span class=p>(</span><span class=n>reverse</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>[(3, 'sleep'), (2, 'code'), (1, 'eat')]
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>while</span> <span class=n>q</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>next_item</span> <span class=o>=</span> <span class=n>q</span><span class=o>.</span><span class=n>pop</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>next_item</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>(1, 'eat')
+(2, 'code')
+(3, 'sleep')
+</code></pre><a href=#heapq-list-based-binary-heaps><h3 id=heapq-list-based-binary-heaps><span class=hanchor arialabel=Anchor># </span>heapq: List-Based Binary Heaps</h3></a><p>heapq is a binary heap implementation usually backed by a plain list, and it supports insertion and extraction of the smallest element in O(log n) time.</p><p>This module is a good choice for implementing priority queues in Python. Since heapq technically provides <strong>only a min-heap implementation</strong>, extra steps must be taken to ensure sort stability and other features typically expected from a practical priority queue:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>heapq</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl><span class=n>heapq</span><span class=o>.</span><span class=n>heappush</span><span class=p>(</span><span class=n>q</span><span class=p>,</span> <span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=s2>&#34;code&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>heapq</span><span class=o>.</span><span class=n>heappush</span><span class=p>(</span><span class=n>q</span><span class=p>,</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=s2>&#34;eat&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>heapq</span><span class=o>.</span><span class=n>heappush</span><span class=p>(</span><span class=n>q</span><span class=p>,</span> <span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=s2>&#34;sleep&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>q</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>[(1, 'eat'), (2, 'code'), (3, 'sleep')]
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>while</span> <span class=n>q</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>next_item</span> <span class=o>=</span> <span class=n>heapq</span><span class=o>.</span><span class=n>heappop</span><span class=p>(</span><span class=n>q</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>next_item</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>(1, 'eat')
+(2, 'code')
+(3, 'sleep')
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl><span class=n>heapq</span><span class=o>.</span><span class=n>heappush</span><span class=p>(</span><span class=n>q</span><span class=p>,</span> <span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=s2>&#34;code&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>heapq</span><span class=o>.</span><span class=n>heappush</span><span class=p>(</span><span class=n>q</span><span class=p>,</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=s2>&#34;eat&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>heapq</span><span class=o>.</span><span class=n>heappush</span><span class=p>(</span><span class=n>q</span><span class=p>,</span> <span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=s2>&#34;sleep&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>heapq</span><span class=o>.</span><span class=n>heappush</span><span class=p>(</span><span class=n>q</span><span class=p>,</span> <span class=p>(</span><span class=mi>7</span><span class=p>,</span> <span class=s2>&#34;run&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>heapq</span><span class=o>.</span><span class=n>heappush</span><span class=p>(</span><span class=n>q</span><span class=p>,</span> <span class=p>(</span><span class=mi>6</span><span class=p>,</span> <span class=s2>&#34;drive&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>heapq</span><span class=o>.</span><span class=n>heappush</span><span class=p>(</span><span class=n>q</span><span class=p>,</span> <span class=p>(</span><span class=mi>4</span><span class=p>,</span> <span class=s2>&#34;swim&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>heapq</span><span class=o>.</span><span class=n>heappush</span><span class=p>(</span><span class=n>q</span><span class=p>,</span> <span class=p>(</span><span class=mi>5</span><span class=p>,</span> <span class=s2>&#34;idle&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>q</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>[(1, 'eat'),
+ (2, 'code'),
+ (3, 'sleep'),
+ (7, 'run'),
+ (6, 'drive'),
+ (4, 'swim'),
+ (5, 'idle')]
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>heapq</span><span class=o>.</span><span class=n>nlargest</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=n>q</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>[(7, 'run'), (6, 'drive'), (5, 'idle')]
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>heapq</span><span class=o>.</span><span class=n>nsmallest</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=n>q</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>[(1, 'eat'), (2, 'code'), (3, 'sleep')]
+</code></pre><a href=#queuepriorityqueue-beautiful-priority-queues><h3 id=queuepriorityqueue-beautiful-priority-queues><span class=hanchor arialabel=Anchor># </span>queue.PriorityQueue: Beautiful Priority Queues</h3></a><p>queue.PriorityQueue uses heapq internally and shares the same time and space complexities. The difference is that PriorityQueue is synchronized and provides locking semantics to support multiple concurrent producers and consumers.</p><p>Depending on your use case, this might be helpful, or it might just slow your program down slightly. In any case, you might prefer the class-based interface provided by PriorityQueue over the function-based interface provided by heapq:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>queue</span> <span class=kn>import</span> <span class=n>PriorityQueue</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=n>PriorityQueue</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>put</span><span class=p>((</span><span class=mi>2</span><span class=p>,</span> <span class=s2>&#34;code&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>put</span><span class=p>((</span><span class=mi>1</span><span class=p>,</span> <span class=s2>&#34;eat&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>q</span><span class=o>.</span><span class=n>put</span><span class=p>((</span><span class=mi>3</span><span class=p>,</span> <span class=s2>&#34;sleep&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>q</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>&lt;queue.PriorityQueue at 0x7ff72e431400&gt;
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>while</span> <span class=ow>not</span> <span class=n>q</span><span class=o>.</span><span class=n>empty</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>next_item</span> <span class=o>=</span> <span class=n>q</span><span class=o>.</span><span class=n>get</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>next_item</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>(1, 'eat')
+(2, 'code')
+(3, 'sleep')
+</code></pre><a href=#priority-queues-in-python-summary><h2 id=priority-queues-in-python-summary><span class=hanchor arialabel=Anchor># </span>Priority Queues in Python: Summary</h2></a><p>Python includes several priority queue implementations ready for you to use.</p><p>queue.PriorityQueue stands out from the pack with a nice object-oriented interface and a name that clearly states its intent. It should be your preferred choice.</p><p>If you’d like to avoid the locking overhead of queue.PriorityQueue, then using the heapq module directly is also a good option.</p><a href=#conclusion-python-data-structures><h1 id=conclusion-python-data-structures><span class=hanchor arialabel=Anchor># </span>Conclusion: Python Data Structures</h1></a><p>That concludes your tour of common data structures in Python. With the knowledge you’ve gained here, you’re ready to implement efficient data structures that are just right for your specific algorithm or use case.</p><p>In this tutorial, you’ve learned:</p><p>Which common abstract data types are built into the Python standard library
+How the most common abstract data types map to Python’s naming scheme
+How to put abstract data types to practical use in various algorithms</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python></code></pre></td></tr></table></div></div></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li><a href=/digital-garden/notes/python-programming/ data-ctx="Python Data Structure Basics" data-src=/notes/python-programming class=internal-link>Python Programming</a></li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://yangls06.github.io/digital-garden/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by yangls06 using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://yangls06.github.io/digital-garden/>Home</a></li><li><a href=https://github.com/yangls06>Github</a></li></ul></footer></div></div></body></html>
