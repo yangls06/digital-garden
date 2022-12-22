@@ -24,5 +24,6 @@ My Digital Garden include:
 
 * [Python Programming](notes/python-programming.md)
 * [Data System](notes/data-system.md)
+* [Web Development](notes/web-development.md)
 * [DevOps](notes/devops.md)
 
