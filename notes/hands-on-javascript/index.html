@@ -1,0 +1,890 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="JavaScript基础 最近工作中会涉及到前端工作，因此要用到JavaScript，故而学习一波。参考：
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Overview  环境准备：Jupyter Notebook + IJavaScript 打算在Jupyter Notebook中使用JavaScript，便于交互式的学习和探查。于是找到了IJavascript这个Jupyter Notebook的JavaScript Kernel. 其安装和使用参考主页：http://n-riesco.github.io/ijavascript/
+ 注意📢：在安装的过程中（brew install pkg-config node zeromq），可能会出现“Error: No such file or directory @ rb_sysopen”的错误，可以参考：https://blog."><title>Hands on JavaScript</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://yangls06.github.io/digital-garden//icon.png><link href=https://yangls06.github.io/digital-garden/styles.708c2658f93e3a9d323a1f9fded8f4b2.min.css rel=stylesheet><link href=https://yangls06.github.io/digital-garden/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://yangls06.github.io/digital-garden/js/darkmode.aa0630d04550405b827df945275af6c3.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script src=https://yangls06.github.io/digital-garden/js/popover.9b72b70bd35617d0635e9d15463662b2.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const BASE_URL="https://yangls06.github.io/digital-garden/",fetchData=Promise.all([fetch("https://yangls06.github.io/digital-garden/indices/linkIndex.90f2ca6e176a93777040c520301514e2.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://yangls06.github.io/digital-garden/indices/contentIndex.8f6680615c2316d306bec361018c22d7.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://yangls06.github.io/digital-garden",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://yangls06.github.io/digital-garden",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/yangls06.github.io\/digital-garden\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ32FS7YEX"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-GQ32FS7YEX",{anonymize_ip:!1})}</script><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://yangls06.github.io/digital-garden/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://yangls06.github.io/digital-garden/>🪴 无人之路</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><h1>Hands on JavaScript</h1><p class=meta>Last updated
+Dec 22, 2022
+<a href=https://github.com/yangls06/digital-garden/tree/hugo/content/notes/hands-on-javascript.md rel=noopener>Edit Source</a></p><ul class=tags><li><a href=https://yangls06.github.io/digital-garden/tags/JavaScript/>Java script</a></li></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#环境准备jupyter-notebook--ijavascript>环境准备：Jupyter Notebook + IJavaScript</a></li><li><a href=#data-types数据类型>Data types：数据类型</a><ol><li><a href=#numbers>Numbers</a></li><li><a href=#string>String</a></li><li><a href=#其他类型>其他类型</a></li></ol></li><li><a href=#variables-变量>Variables: 变量</a></li><li><a href=#operators运算符>Operators：运算符</a></li><li><a href=#grammar-语法风格>Grammar: 语法风格</a></li><li><a href=#control-structure-控制结构>Control Structure: 控制结构</a></li><li><a href=#objects-对象类型>Objects: 对象类型</a></li><li><a href=#arrays-数组>Arrays: 数组</a></li><li><a href=#functions-函数>Functions: 函数</a><ol><li><a href=#anonymous-functions-匿名函数>Anonymous functions: 匿名函数</a></li><li><a href=#functions-are-first-class-objects-函数是头等公民>Functions are first-class objects: 函数是头等公民</a></li><li><a href=#inner-functions-内部函数>Inner functions: 内部函数</a></li></ol></li><li><a href=#classes-类>Classes: 类</a></li><li><a href=#asynchronous-programming-异步编程>Asynchronous programming: 异步编程</a></li><li><a href=#modules-模块>Modules: 模块</a></li></ol></nav></details></aside><a href=#javascript基础><h1 id=javascript基础><span class=hanchor arialabel=Anchor># </span>JavaScript基础</h1></a><p>最近工作中会涉及到前端工作，因此要用到JavaScript，故而学习一波。参考：</p><ul><li><a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Overview rel=noopener>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Overview</a></li></ul><a href=#环境准备jupyter-notebook--ijavascript><h2 id=环境准备jupyter-notebook--ijavascript><span class=hanchor arialabel=Anchor># </span>环境准备：Jupyter Notebook + IJavaScript</h2></a><p>打算在Jupyter Notebook中使用JavaScript，便于交互式的学习和探查。于是找到了IJavascript这个Jupyter Notebook的JavaScript Kernel.
+其安装和使用参考主页：http://n-riesco.github.io/ijavascript/</p><blockquote><p>注意📢：在安装的过程中（brew install pkg-config node zeromq），可能会出现“Error: No such file or directory @ rb_sysopen”的错误，可以参考：https://blog.csdn.net/weixin_43770545/article/details/127715990, 做相应的问题排查和修复。</p></blockquote><p>安装好IJavaScript之后，可以直接通过jupyter-lab（或者jupyter notebook）命令启动，然后选择JavaScript内核的Notebook。</p><p><img src=https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20221222100114102.png width=auto alt=image-20221222100114102></p><p>然后就能在其中测试和探索JavaScript的各种功能。</p><p>下面是跟随https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Overview 教程一路run下来的结果。</p><a href=#data-types数据类型><h2 id=data-types数据类型><span class=hanchor arialabel=Anchor># </span>Data types：数据类型</h2></a><p>JavaScript中有7中原生类型：</p><ul><li>Number：除了非常非常大的整数，Number可以表达任意数字（整数、浮点数均可）。</li><li>Bigint：非常非常大的整数。</li><li>String：字符串。</li><li>Boolean：布尔型，true/false。</li><li>Symbol：类似uuid，creating unique identifiers that won&rsquo;t collide。</li><li>Undefined：没有被赋值的变量。</li><li>Null：non-value</li></ul><p>其他的数据都属于<code>Object</code>，包括：</p><ul><li>Function：函数不是一种特殊的数据结构，它只是可以被调用的一种特殊的object。</li><li>Array</li><li>Date</li><li>RegExp</li><li>Error</li></ul><blockquote><p>疑问❓：没有dict或者map吗？</p></blockquote><a href=#numbers><h3 id=numbers><span class=hanchor arialabel=Anchor># </span>Numbers</h3></a><p>JavaScript有两种数字类型：Number和Bigint。</p><p>Number既能表示整数（-(2^53-1)~2^53-1）,又能表示浮点数（最大值：1.79*10^308）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=mi>3</span><span class=o>/</span><span class=mi>2</span><span class=p>);</span> <span class=c1>// 1.5, not 1
+</span></span></span></code></pre></td></tr></table></div></div><pre><code>1.5
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 浮点数可以存在不精确的情况
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=mf>0.1</span><span class=o>+</span><span class=mf>0.2</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>0.30000000000000004
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// Number literals can also have prefixes to indicate the base 
+</span></span></span><span class=line><span class=cl><span class=c1>// (binary, octal, decimal, or hexadecimal), or an exponent suffix.
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=mb>0b111110111</span><span class=p>);</span> <span class=c1>// 503
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=mo>0o767</span><span class=p>);</span> <span class=c1>// 503
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=mh>0x1f7</span><span class=p>);</span> <span class=c1>// 503
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=mf>5.03</span><span class=nx>e2</span><span class=p>);</span> <span class=c1>// 503
+</span></span></span></code></pre></td></tr></table></div></div><pre><code>503
+503
+503
+503
+</code></pre><p>Bigint用来指定数值是整数，它是在数字后面跟一个后缀：<code>n</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=o>-</span><span class=mi>3</span><span class=nx>n</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>-3n
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// console.log(-3.1n)
+</span></span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=o>-</span><span class=mi>3</span><span class=nx>n</span><span class=o>/</span><span class=mi>2</span><span class=nx>n</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>-1n
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// Bigint与Number不能混合运算
+</span></span></span><span class=line><span class=cl><span class=c1>// console.log(-3n + 2); //TypeError: Cannot mix BigInt and other types, use explicit conversions
+</span></span></span></code></pre></td></tr></table></div></div><p>Math是一个提供标准数据运算的Object。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>Math</span><span class=p>.</span><span class=nx>sin</span><span class=p>(</span><span class=mf>3.5</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>-0.35078322768961984
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>var</span> <span class=nx>r0</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>circumference0</span> <span class=o>=</span> <span class=mi>2</span> <span class=o>*</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>PI</span> <span class=o>*</span> <span class=nx>r0</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>circumference0</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>12.566370614359172
+</code></pre><p>可以使用下面的方式做数字和字符串之间的转换：</p><ul><li>parseInt()：把字符串解析成整数。</li><li>parseFloat()：将字符串解析成一个浮点数。</li><li>Number()：将表示Number数值的字符串解析成Number类型的值。也可以使用<code>+/-</code>符号来代替Number()函数。</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>parseInt</span><span class=p>(</span><span class=s1>&#39;123&#39;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>123
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>parseInt</span><span class=p>(</span><span class=s1>&#39;123n&#39;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>123
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>parseInt</span><span class=p>(</span><span class=s1>&#39;-123&#39;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>-123
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>parseInt</span><span class=p>(</span><span class=s1>&#39;123.4&#39;</span><span class=p>);</span> <span class=c1>// 可以解析小数，只是得到其整数部分
+</span></span></span></code></pre></td></tr></table></div></div><pre><code>123
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>parseFloat</span><span class=p>(</span><span class=s1>&#39;123.4&#39;</span><span class=p>);</span> 
+</span></span></code></pre></td></tr></table></div></div><pre><code>123.4
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>parseInt</span><span class=p>(</span><span class=s1>&#39;0b111110111&#39;</span><span class=p>);</span> <span class=c1>// 不能正确解析其他进制的数
+</span></span></span></code></pre></td></tr></table></div></div><pre><code>0
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>Number</span><span class=p>(</span><span class=s1>&#39;0b111110111&#39;</span><span class=p>);</span> 
+</span></span></code></pre></td></tr></table></div></div><pre><code>503
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>Number</span><span class=p>(</span><span class=s1>&#39;0o767&#39;</span><span class=p>);</span> 
+</span></span></code></pre></td></tr></table></div></div><pre><code>503
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=o>+</span><span class=s1>&#39;0o767&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>503
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=o>-</span><span class=s1>&#39;0b111110111&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>-503
+</code></pre><p><code>NaN</code>表示Not a Number，比如解析一个非数字表达；传入<code>NaN</code>做运算，会返回<code>NaN</code>。</p><p><code>Infinity</code>表示无穷大，除以0会产生这个值。它有正负之分。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>parseInt</span><span class=p>(</span><span class=s1>&#39;Not a Number&#39;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>NaN
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kc>NaN</span> <span class=o>+</span> <span class=mi>1</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>NaN
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=mi>1</span><span class=o>/</span><span class=mi>0</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Infinity
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=o>-</span><span class=mi>1</span><span class=o>/</span><span class=mi>0</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>-Infinity
+</code></pre><a href=#string><h3 id=string><span class=hanchor arialabel=Anchor># </span>String</h3></a><p>JavaScript中的字符串就是Unicode（准确说是UTF-16编码）字符的序列。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Hello, world&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;你好，世界！&#39;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Hello, world
+你好，世界！
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 单引号和双引号都OK
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Hello, world&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;你好，世界！&#34;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Hello, world
+你好，世界！
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 字符和字符串之间也没有差别：字符就是长度为1的字符串
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=s1>&#39;Hello&#39;</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>===</span> <span class=s1>&#39;e&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>true
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 字符串长度：length属性
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=s1>&#39;Hello&#39;</span><span class=p>.</span><span class=nx>length</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>5
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 字符串相加
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>age</span> <span class=o>=</span> <span class=mi>25</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;I am &#39;</span> <span class=o>+</span> <span class=nx>age</span> <span class=o>+</span> <span class=s1>&#39; years old.&#39;</span><span class=p>)</span> <span class=c1>// String concatenation
+</span></span></span></code></pre></td></tr></table></div></div><pre><code>I am 25 years old.
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 也可用字符串模板：使用反引号 `` + ${}
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`I am </span><span class=si>${</span><span class=nx>age</span><span class=si>}</span><span class=sb> years old.`</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>I am 25 years old.
+</code></pre><a href=#其他类型><h3 id=其他类型><span class=hanchor arialabel=Anchor># </span>其他类型</h3></a><p>在JavaScript中，<code>null</code>表示deliberate non-value（故意的空值），<code>undefined</code>表示absence of value（没有定义的值）。<code>null</code>只能通过null关键字获取，而<code>undefined</code>可以通过下面的多种方式获取：</p><ul><li>return语句不带值（return;）</li><li>访问object一个并不存在的属性（obj.iDontExist）</li><li>申明一个变量但不赋值(let x;)</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>returnNothing</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>returnNothing</span><span class=p>())</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>undefined
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>var</span> <span class=nx>arr</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>arr</span><span class=p>.</span><span class=nx>iDontExist</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>undefined
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>let</span> <span class=nx>xxx</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>xxx</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>undefined
+</code></pre><p>JavaScript的布尔值<code>true</code>和<code>false</code>，任何值都可以转换成布尔值，其规则如下：</p><ul><li><code>false</code>, <code>0</code>, 空字符串<code>""</code>, <code>NaN</code>, <code>null</code>以及<code>undefined</code>被转换成<code>false</code></li><li>其他值都被转换成<code>true</code></li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>Boolean</span><span class=p>(</span><span class=s2>&#34;&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>false
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>Boolean</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>false
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>Boolean</span><span class=p>(</span><span class=mf>0.0</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>false
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>Boolean</span><span class=p>(</span><span class=kc>undefined</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>false
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nb>Boolean</span><span class=p>(</span><span class=s1>&#39;Hello&#39;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>true
+</code></pre><a href=#variables-变量><h2 id=variables-变量><span class=hanchor arialabel=Anchor># </span>Variables: 变量</h2></a><p>JavaScript中，变量可以由下面的三个关键字申明：<code>let</code>, <code>const</code>, <code>var</code>。他们之间的差别可以参考：</p><p><a href="https://www.freecodecamp.org/chinese/news/javascript-var-let-and-const/#:~:text=var-%E5%A3%B0%E6%98%8E%E6%98%AF%E5%85%A8%E5%B1%80%E4%BD%9C%E7%94%A8,%E5%85%B6%E4%BD%9C%E7%94%A8%E5%9F%9F%E7%9A%84%E9%A1%B6%E7%AB%AF%E3%80%82" rel=noopener>JavaScript 中的 Var、Let 和 Const 有什么区别</a>。</p><p>总结其异同点：</p><ul><li><code>var</code>声明是全局作用域或函数作用域，而<code>let</code>和<code>const</code>是块作用域。</li><li><code>var</code>变量可以在其范围内更新和重新声明； <code>let</code>变量可以被更新但不能重新声明； <code>const</code>变量既不能更新也不能重新声明。</li><li>它们都被提升到其作用域的顶端。但是，虽然使用变量undefined初始化了<code>var</code>变量，但未初始化<code>let</code>和<code>const</code>变量。</li><li>尽管可以在不初始化的情况下声明<code>var</code>和<code>let</code>，但是在声明期间必须初始化<code>const</code>。</li></ul><p>现在<code>let</code>是主流的申明方式。</p><p>下面通过几个例子来说明。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// var的作用域是全局或者函数范围
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>greeter</span> <span class=o>=</span> <span class=s1>&#39;hi&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>newFunc</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>hello</span> <span class=o>=</span> <span class=s1>&#39;hello&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greeter</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>// console.log(hello); // ReferenceError: hello is not defined
+</span></span></span></code></pre></td></tr></table></div></div><pre><code>hi
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// var变量可以重新申明和修改
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>var</span> <span class=nx>greeter</span> <span class=o>=</span> <span class=s1>&#39;hi&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>greeter</span> <span class=o>=</span> <span class=s1>&#39;hello&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greeter</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>greeter</span> <span class=o>=</span> <span class=s1>&#39;hi hi hi&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greeter</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>hello
+hi hi hi
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// var 的变量提升
+</span></span></span><span class=line><span class=cl><span class=c1>// 变量提升是 JavaScript 的一种机制:在执行代码之前，变量和函数声明会移至其作用域的顶部。这意味着如果我们这样做:
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greeter0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>greeter0</span> <span class=o>=</span> <span class=s1>&#39;hi 0&#39;</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>undefined
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 上面的代码会被解释为：
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>var</span> <span class=nx>greeter0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greeter0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>greeter0</span> <span class=o>=</span> <span class=s1>&#39;hi 0&#39;</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>hi 0
+
+
+
+
+
+'hi 0'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// var的问题：因为全局作用域造成的不希望发生的赋值和引用
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>greeter1</span> <span class=o>=</span> <span class=s1>&#39;hi&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>times</span> <span class=o>=</span> <span class=mi>4</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span><span class=p>(</span><span class=nx>times</span> <span class=o>&gt;</span> <span class=mi>3</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>greeter1</span> <span class=o>=</span> <span class=s1>&#39;Hello&#39;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greeter1</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Hello
+</code></pre><p>上例中，if block中的greeter1影响了全局greeter1的值。这有可能是我们不希望看到的。这就是使用let的原因：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// let的作用域是block {} 级别的
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>greeter3</span> <span class=o>=</span> <span class=s1>&#39;hi&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>times1</span> <span class=o>=</span> <span class=mi>4</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span><span class=p>(</span><span class=nx>times1</span> <span class=o>&gt;</span> <span class=mi>3</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>greeter3</span> <span class=o>=</span> <span class=s1>&#39;Hello&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greeter3</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greeter3</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Hello
+hi
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// let变量能被修改，但不能被重新申明
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>greeter5</span> <span class=o>=</span> <span class=s1>&#39;hi&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>greeter5</span> <span class=o>=</span> <span class=s1>&#39;hello&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greeter5</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>hello
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// let greeter5 = &#39;hi&#39;; //SyntaxError: Identifier &#39;greeter5&#39; has already been declared
+</span></span></span></code></pre></td></tr></table></div></div><p><code>const</code>与<code>let</code>类似，只不过其申明的变量必须保持常量，不能被修改。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>greeter6</span> <span class=o>=</span> <span class=s1>&#39;hi&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c1>// greeter6 = &#39;hello&#39;; //TypeError: Assignment to constant variable.
+</span></span></span></code></pre></td></tr></table></div></div><p>不过其申明的object类型的变量，其属性是可以被改变的。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>obj_greeter</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>message</span><span class=o>:</span> <span class=s1>&#39;hi&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>times</span><span class=o>:</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>obj_greeter</span><span class=p>.</span><span class=nx>message</span> <span class=o>=</span> <span class=s1>&#39;hello&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>obj_greeter</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{ message: 'hello', times: 4 }
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>obj_greeter</span><span class=p>.</span><span class=nx>receiver</span> <span class=o>=</span> <span class=s1>&#39;Jack&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>obj_greeter</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{ message: 'hello', times: 4, receiver: 'Jack' }
+</code></pre><p>JavaScript是动态类型，意味着同一个变量名可以指向不同类型的数据。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>let</span> <span class=nx>a</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>a</span> <span class=o>=</span> <span class=s1>&#39;foo&#39;</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'foo'
+</code></pre><a href=#operators运算符><h2 id=operators运算符><span class=hanchor arialabel=Anchor># </span>Operators：运算符</h2></a><p>JavaScript支持的运算符包括：</p><ul><li><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, <code>**</code>: 数学运算</li><li><code>=</code>, <code>+=</code>, <code>-=</code>: 赋值</li><li><code>++</code>, <code>--</code>: 自加自减</li><li><code>+</code>: 字符串拼接</li><li><code>></code>, <code>&lt;</code>, <code>>=</code>, <code>&lt;=</code>: 不等比较</li><li><code>==</code>: 双等号，不同类型会强制转换（type coercion）, 对应的不等号是<code>!=</code></li><li><code>===</code>: 三等号，不同类型不会强制转换, 对应的不等号是<code>!==</code></li><li><code>&&</code>, <code>||</code>, <code>!</code>: 逻辑运算：与或非</li><li><code>&</code>, <code>|</code>, <code>~</code>: 位运算：与或非</li></ul><p>更详尽的运算符说明，见
+<a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators rel=noopener>链接</a>。</p><p>下面是一些示例。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 求余数
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=mi>123</span> <span class=o>%</span> <span class=p>(</span><span class=mf>3.5</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>0.5
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 注意顺序
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=s2>&#34;3&#34;</span> <span class=o>+</span> <span class=mi>4</span> <span class=o>+</span> <span class=mi>5</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'345'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=mi>3</span> <span class=o>+</span> <span class=mi>4</span> <span class=o>+</span> <span class=s1>&#39;5&#39;</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'75'
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 双等号 vs 三等号
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=mi>123</span> <span class=o>==</span> <span class=s1>&#39;123&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=mi>1</span> <span class=o>==</span> <span class=kc>true</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=mi>123</span> <span class=o>===</span> <span class=s1>&#39;123&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=mi>1</span> <span class=o>===</span> <span class=kc>true</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>true
+true
+false
+false
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 逻辑运算
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>a1</span> <span class=o>=</span> <span class=mi>0</span> <span class=o>&amp;&amp;</span> <span class=s1>&#39;Hello&#39;</span><span class=p>;</span> <span class=c1>// 0 because 0 is &#34;falsy&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>a1</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>0
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>b1</span> <span class=o>=</span> <span class=s2>&#34;Hello&#34;</span> <span class=o>||</span> <span class=s2>&#34;world&#34;</span><span class=p>;</span> <span class=c1>// &#34;Hello&#34; because both &#34;Hello&#34; and &#34;world&#34; are &#34;truthy&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>b1</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Hello
+</code></pre><a href=#grammar-语法风格><h2 id=grammar-语法风格><span class=hanchor arialabel=Anchor># </span>Grammar: 语法风格</h2></a><p>JavaScript的语法风格接近于C语言。有下面几点值得注意：</p><ul><li>注释：单行用<code>//</code>，多行用<code>/* */</code></li><li>表达式的结尾用&rsquo;;&rsquo;：但这个分号也是可选的</li></ul><a href=#control-structure-控制结构><h2 id=control-structure-控制结构><span class=hanchor arialabel=Anchor># </span>Control Structure: 控制结构</h2></a><p>和大多数语言一样，JavaScript包括下面的控制结构：</p><ul><li><code>if</code>, <code>else</code>: 条件</li><li><code>while</code>, <code>do...while</code>: 循环</li><li><code>for</code>, 除了常规的for循环，还衍生出两种特殊的遍历：<ul><li><code>for...of</code>: 遍历数组的各个元素</li><li><code>for...in</code>: 遍历object的各个属性</li></ul></li><li><code>switch</code>: 分支</li><li><code>try...catch</code>, <code>throw</code>: 异常</li></ul><a href=#objects-对象类型><h2 id=objects-对象类型><span class=hanchor arialabel=Anchor># </span>Objects: 对象类型</h2></a><p>JavaScript的object类型用来放键值对key-value数据，相当于Python中的dict. object是非常动态的, 它的属性可以随时被添加、删除、重排、突变mutated。object的key总是string或者symbol。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>obj</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>name</span><span class=o>:</span> <span class=s1>&#39;Carrot&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span><span class=o>:</span> <span class=s1>&#39;Max&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>details</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>color</span><span class=o>:</span> <span class=s1>&#39;orange&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>size</span><span class=o>:</span> <span class=mi>12</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>obj</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{ name: 'Carrot', for: 'Max', details: { color: 'orange', size: 12 } }
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// dot notation: 只能是一个静态的标识符
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>obj</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// bracket notation：可以是一个动态的变量
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>obj</span><span class=p>[</span><span class=s1>&#39;name&#39;</span><span class=p>])</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>Carrot
+Carrot
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 用变量来标识一个key
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>userName1</span> <span class=o>=</span> <span class=s1>&#39;nick&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>obj</span><span class=p>[</span><span class=nx>userName1</span><span class=p>]</span> <span class=o>=</span> <span class=s1>&#39;Catty&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>obj</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{
+  name: 'Carrot',
+  for: 'Max',
+  details: { color: 'orange', size: 12 },
+  nick: 'Catty'
+}
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 链式访问
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>obj</span><span class=p>.</span><span class=nx>details</span><span class=p>.</span><span class=nx>color</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>obj</span><span class=p>[</span><span class=s1>&#39;details&#39;</span><span class=p>][</span><span class=s1>&#39;size&#39;</span><span class=p>]);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>orange
+12
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// object是按照引用传值
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>obj1</span> <span class=o>=</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>doSth</span><span class=p>(</span><span class=nx>o</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>o</span><span class=p>.</span><span class=nx>x</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>doSth</span><span class=p>(</span><span class=nx>obj1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>obj1</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{ x: 1 }
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 引用
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>obj2</span> <span class=o>=</span> <span class=nx>obj1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>obj1</span><span class=p>.</span><span class=nx>y</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>obj2</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>{ x: 1, y: 2 }
+</code></pre><a href=#arrays-数组><h2 id=arrays-数组><span class=hanchor arialabel=Anchor># </span>Arrays: 数组</h2></a><p>JavaScript中的数组是一种特殊的object，通过<code>[index]</code>来访问元素。数组长度通过<code>.length</code>来获取。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>arr1</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;dog&#39;</span><span class=p>,</span> <span class=s1>&#39;cat&#39;</span><span class=p>,</span> <span class=s1>&#39;hen&#39;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=nx>a</span><span class=p>.</span><span class=nx>length</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>3
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 可以给任意非负整数的下标赋值
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>arr1</span><span class=p>[</span><span class=mi>10</span><span class=p>]</span> <span class=o>=</span> <span class=s1>&#39;fox&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>arr1</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>[ 'dog', 'cat', 'hen', &lt;7 empty items&gt;, 'fox' ]
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 数组访问越界是不会报错的，只会放回一个undefined
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>arr1</span><span class=p>[</span><span class=mi>100</span><span class=p>])</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>undefined
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 数组元素可以是任意类型的
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>arr1</span><span class=p>.</span><span class=nx>push</span>
+</span></span><span class=line><span class=cl><span class=nx>arr1</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>arr1</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=kc>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>arr1</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=mi>101</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>arr1</span><span class=p>.</span><span class=nx>push</span><span class=p>({});</span>
+</span></span><span class=line><span class=cl><span class=nx>arr1</span><span class=p>.</span><span class=nx>push</span><span class=p>([]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>arr1</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>[
+  'dog',
+  'cat',
+  'hen',
+  &lt;7 empty items&gt;,
+  'fox',
+  false,
+  null,
+  101,
+  {},
+  []
+]
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>arr1</span><span class=p>[</span><span class=mi>14</span><span class=p>].</span><span class=nx>x</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>arr1</span><span class=p>[</span><span class=mi>15</span><span class=p>].</span><span class=nx>push</span><span class=p>(</span><span class=s1>&#39;ok&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>arr1</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>[
+  'dog',
+  'cat',
+  'hen',
+  &lt;7 empty items&gt;,
+  'fox',
+  false,
+  null,
+  101,
+  { x: 1 },
+  [ 'ok' ]
+]
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 遍历： 通过for
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=k>for</span><span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>arr1</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;#&#39;</span> <span class=o>+</span> <span class=nx>i</span> <span class=o>+</span> <span class=s1>&#39; : &#39;</span> <span class=o>+</span> <span class=nx>arr1</span><span class=p>[</span><span class=nx>i</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>#0 : dog
+#1 : cat
+#2 : hen
+#3 : undefined
+#4 : undefined
+#5 : undefined
+#6 : undefined
+#7 : undefined
+#8 : undefined
+#9 : undefined
+#10 : fox
+#11 : false
+#12 : null
+#13 : 101
+#14 : [object Object]
+#15 : ok
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 遍历： for...of
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>for</span><span class=p>(</span><span class=kr>const</span> <span class=nx>a</span> <span class=k>of</span> <span class=nx>arr1</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>a</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>dog
+cat
+hen
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+fox
+false
+null
+101
+{ x: 1 }
+[ 'ok' ]
+</code></pre><p>Array有一系列的方法，比如cancat, map, filter, slice等，详见
+<a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array rel=noopener>Array</a>。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// map
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>babies</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;dog&#39;</span><span class=p>,</span> <span class=s1>&#39;cat&#39;</span><span class=p>,</span> <span class=s1>&#39;hen&#39;</span><span class=p>,</span> <span class=s1>&#39;fox&#39;</span><span class=p>].</span><span class=nx>map</span><span class=p>((</span><span class=nx>name</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=s1>&#39;baby &#39;</span> <span class=o>+</span> <span class=nx>name</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>babies</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>[ 'baby dog', 'baby cat', 'baby hen', 'baby fox' ]
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// concat: 数组拼接
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>arr2</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;a&#39;</span><span class=p>,</span> <span class=s1>&#39;b&#39;</span><span class=p>,</span> <span class=s1>&#39;c&#39;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>arr3</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;d&#39;</span><span class=p>,</span> <span class=s1>&#39;e&#39;</span><span class=p>,</span> <span class=s1>&#39;f&#39;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>arr4</span> <span class=o>=</span> <span class=nx>arr2</span><span class=p>.</span><span class=nx>concat</span><span class=p>(</span><span class=nx>arr3</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>arr4</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>[ 'a', 'b', 'c', 'd', 'e', 'f' ]
+</code></pre><a href=#functions-函数><h2 id=functions-函数><span class=hanchor arialabel=Anchor># </span>Functions: 函数</h2></a><p>函数在JavaScript中非常重要，是其核心组成部分。下面是一个基础的函数声明：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>add</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>total</span> <span class=o>=</span> <span class=nx>x</span> <span class=o>+</span> <span class=nx>y</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>total</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 函数传参个数可以少于定义的参数个数，缺少的参数会被定义成undefined
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>add</span><span class=p>();</span> <span class=c1>// Equivalent to add(undefined, undefined)
+</span></span></span></code></pre></td></tr></table></div></div><pre><code>NaN
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 如果传入的参数个数多余定义的，多余的参数被直接忽略。总之，函数不会因为参数的多少而报语法错
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>add</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>4</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>3
+</code></pre><p>函数的参数可以是rest parameter语法，通过一个数组来存储未明确指定的参数值，类似Python的<code>*args</code>（注：在语法层面没有<code>**kwargs</code>）。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>avg</span><span class=p>(...</span><span class=nx>args</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>sum</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kr>const</span> <span class=nx>item</span> <span class=k>of</span> <span class=nx>args</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>sum</span> <span class=o>+=</span> <span class=nx>item</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>sum</span> <span class=o>/</span> <span class=nx>args</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>avg</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>3
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 还可以这么调用
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>arr5</span> <span class=o>=</span> <span class=p>[</span><span class=mi>5</span><span class=p>,</span> <span class=mi>6</span><span class=p>,</span> <span class=mi>7</span><span class=p>,</span> <span class=mi>8</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nx>avg</span><span class=p>(...</span><span class=nx>arr5</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>6.5
+</code></pre><p>虽然JavaScript的函数不支持<code>**kwargs</code>这样的命名参数，但是可以通过传入object类型参数，通过<code>object destructuring</code>来<code>pack/unpack</code>。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// Note the { } braces: this is destructuring an object
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>area</span><span class=p>({</span> <span class=nx>width</span><span class=p>,</span> <span class=nx>height</span> <span class=p>})</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=nx>width</span> <span class=o>*</span> <span class=nx>height</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// The { } braces here create a new object
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>area</span><span class=p>({</span> <span class=nx>width</span><span class=o>:</span> <span class=mi>2</span><span class=p>,</span> <span class=nx>height</span><span class=o>:</span> <span class=mi>3</span> <span class=p>}));</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>6
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>area</span><span class=p>({</span> <span class=nx>width1</span><span class=o>:</span> <span class=mi>2</span><span class=p>,</span> <span class=nx>height1</span><span class=o>:</span> <span class=mi>3</span> <span class=p>}));</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>NaN
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 与其他语言一样，JavaScript的函数支持参数的默认值
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>avg3</span><span class=p>(</span><span class=nx>v1</span><span class=p>,</span> <span class=nx>v2</span><span class=p>,</span> <span class=nx>v3</span><span class=o>=</span><span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span><span class=nx>v1</span> <span class=o>+</span> <span class=nx>v2</span> <span class=o>+</span> <span class=nx>v3</span><span class=p>)</span><span class=o>/</span><span class=mi>3</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>avg3</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>1
+</code></pre><a href=#anonymous-functions-匿名函数><h3 id=anonymous-functions-匿名函数><span class=hanchor arialabel=Anchor># </span>Anonymous functions: 匿名函数</h3></a><p>匿名函数就是没有名字的函数。在实践中，匿名函数常常会作为参数传递给其他函数，或者立刻传入参数让函数立刻被调用（通常只被调用一次），抑或被另一个函数作为返回值返回。</p><p>下面是一个匿名函数的定义方式：function后面不带函数名。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>avgFunc</span> <span class=o>=</span> <span class=kd>function</span> <span class=p>(...</span><span class=nx>args</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>sum</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kr>const</span> <span class=nx>item</span> <span class=k>of</span> <span class=nx>args</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>sum</span> <span class=o>+=</span> <span class=nx>item</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>sum</span> <span class=o>/</span> <span class=nx>args</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>  
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>avgFunc</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>4</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>2.3333333333333335
+</code></pre><p>另一种定义的方式是通过arrow function expression，也就是<code>=></code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>avgFunc2</span> <span class=o>=</span> <span class=p>(...</span><span class=nx>args</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>sum</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kr>const</span> <span class=nx>item</span> <span class=k>of</span> <span class=nx>args</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>sum</span> <span class=o>+=</span> <span class=nx>item</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>sum</span> <span class=o>/</span> <span class=nx>args</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>  
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>avgFunc2</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>4</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>2.3333333333333335
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 对简单的表达式，可以不用return
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>sumFunc</span> <span class=o>=</span> <span class=p>(</span><span class=nx>a</span><span class=p>,</span> <span class=nx>b</span><span class=p>,</span> <span class=nx>c</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>a</span> <span class=o>+</span> <span class=nx>b</span> <span class=o>+</span> <span class=nx>c</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>sumFunc</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>6
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>sumFunc1</span> <span class=o>=</span> <span class=p>(</span><span class=nx>a</span><span class=p>,</span> <span class=nx>b</span><span class=p>,</span> <span class=nx>c</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span><span class=k>return</span> <span class=nx>a</span> <span class=o>+</span> <span class=nx>b</span> <span class=o>+</span> <span class=nx>c</span><span class=p>;};</span>
+</span></span><span class=line><span class=cl><span class=nx>sumFunc1</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>6
+</code></pre><a href=#functions-are-first-class-objects-函数是头等公民><h3 id=functions-are-first-class-objects-函数是头等公民><span class=hanchor arialabel=Anchor># </span>Functions are first-class objects: 函数是头等公民</h3></a><p>函数像其他类型一样，可以被赋值给其他参数，或者传参给其他函数，以及被其他函数作为返回值返回。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>addxy</span> <span class=o>=</span> <span class=p>(</span><span class=nx>x</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>(</span><span class=nx>y</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>x</span> <span class=o>+</span> <span class=nx>y</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>addxy</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>[Function (anonymous)]
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>addxy</span><span class=p>(</span><span class=mi>1</span><span class=p>)(</span><span class=mi>2</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>3
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// Function accepting function
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>babies2</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;dog&#34;</span><span class=p>,</span> <span class=s2>&#34;cat&#34;</span><span class=p>,</span> <span class=s2>&#34;hen&#34;</span><span class=p>].</span><span class=nx>map</span><span class=p>((</span><span class=nx>name</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=sb>`baby </span><span class=si>${</span><span class=nx>name</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>babies2</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>[ 'baby dog', 'baby cat', 'baby hen' ]
+</code></pre><a href=#inner-functions-内部函数><h3 id=inner-functions-内部函数><span class=hanchor arialabel=Anchor># </span>Inner functions: 内部函数</h3></a><p>在函数内部定义的函数，内部函数可以访问上层函数作用域内的变量。这个特性可以在内部函数间共享上层函数的变量，从而避免污染全局变量。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>parentFunc</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>a</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>innerFunc</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>b</span> <span class=o>=</span> <span class=mi>4</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>a</span> <span class=o>+</span> <span class=nx>b</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>innerFunc</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>parentFunc</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>5
+</code></pre><a href=#classes-类><h2 id=classes-类><span class=hanchor arialabel=Anchor># </span>Classes: 类</h2></a><p>JavaScript的类定义类似Java：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>class</span> <span class=nx>Person</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>constructor</span><span class=p>(</span><span class=nx>name</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>this</span><span class=p>.</span><span class=nx>name</span> <span class=o>=</span> <span class=nx>name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>sayHello</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=sb>`Hello, I am </span><span class=si>${</span><span class=k>this</span><span class=p>.</span><span class=nx>name</span><span class=si>}</span><span class=sb>!`</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>p</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Person</span><span class=p>(</span><span class=s1>&#39;Maria&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>p</span><span class=p>.</span><span class=nx>sayHello</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><pre><code>'Hello, I am Maria!'
+</code></pre><a href=#asynchronous-programming-异步编程><h2 id=asynchronous-programming-异步编程><span class=hanchor arialabel=Anchor># </span>Asynchronous programming: 异步编程</h2></a><p>JavaScript is single-threaded by nature. There&rsquo;s <em>no paralleling; only concurrency</em>. Asynchronous programming is powered by an event loop, which allows a set of tasks to be queued and polled for completion.</p><p>There are three idiomatic ways to write asynchronous code in JavaScript:</p><ul><li>Callback-based (such as setTimeout())</li><li>Promise-based</li><li>async/await, which is a syntactic sugar for Promises</li></ul><p>For example, here&rsquo;s how a file-read operation may look like in JavaScript:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// Callback-based
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>fs.readFile(filename, (err, content) =&gt; {
+</span></span></span><span class=line><span class=cl><span class=cm>  // This callback is invoked when the file is read, which could be after a while
+</span></span></span><span class=line><span class=cl><span class=cm>  if (err) {
+</span></span></span><span class=line><span class=cl><span class=cm>    throw err;
+</span></span></span><span class=line><span class=cl><span class=cm>  }
+</span></span></span><span class=line><span class=cl><span class=cm>  console.log(content);
+</span></span></span><span class=line><span class=cl><span class=cm>});
+</span></span></span><span class=line><span class=cl><span class=cm>// Code here will be executed while the file is waiting to be read
+</span></span></span><span class=line><span class=cl><span class=cm>*/</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Promise-based
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>fs.readFile(filename)
+</span></span></span><span class=line><span class=cl><span class=cm>  .then((content) =&gt; {
+</span></span></span><span class=line><span class=cl><span class=cm>    // What to do when the file is read
+</span></span></span><span class=line><span class=cl><span class=cm>    console.log(content);
+</span></span></span><span class=line><span class=cl><span class=cm>  }).catch((err) =&gt; {
+</span></span></span><span class=line><span class=cl><span class=cm>    throw err;
+</span></span></span><span class=line><span class=cl><span class=cm>  });
+</span></span></span><span class=line><span class=cl><span class=cm>// Code here will be executed while the file is waiting to be read
+</span></span></span><span class=line><span class=cl><span class=cm>*/</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Async/await
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>async function readFile(filename) {
+</span></span></span><span class=line><span class=cl><span class=cm>  const content = await fs.readFile(filename);
+</span></span></span><span class=line><span class=cl><span class=cm>  console.log(content);
+</span></span></span><span class=line><span class=cl><span class=cm>}
+</span></span></span><span class=line><span class=cl><span class=cm>*/</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#modules-模块><h2 id=modules-模块><span class=hanchor arialabel=Anchor># </span>Modules: 模块</h2></a><p>模块通常是一个js文件，可以被一个文件路径或者URL指定。可以通过import或者export在module之间交换数据。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>
+</span></span></span><span class=line><span class=cl><span class=cm>import { foo } from &#34;./foo.js&#34;;
+</span></span></span><span class=line><span class=cl><span class=cm>
+</span></span></span><span class=line><span class=cl><span class=cm>// Unexported variables are local to the module
+</span></span></span><span class=line><span class=cl><span class=cm>const b = 2;
+</span></span></span><span class=line><span class=cl><span class=cm>
+</span></span></span><span class=line><span class=cl><span class=cm>export const a = 1;
+</span></span></span><span class=line><span class=cl><span class=cm>
+</span></span></span><span class=line><span class=cl><span class=cm>*/</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>这就是JavaScript的基本语法知识。Keep going!</strong></p></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li><a href=/digital-garden/notes/web-development/ data-ctx="Hands on JavaScript" data-src=/notes/web-development class=internal-link>Web Development</a></li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://yangls06.github.io/digital-garden/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by yangls06 using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://yangls06.github.io/digital-garden/>Home</a></li><li><a href=https://github.com/yangls06>Github</a></li></ul></footer></div></div></body></html>
