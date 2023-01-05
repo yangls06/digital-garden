@@ -1,0 +1,240 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="Hands on HTML & CSS  This is my practices on HTML&CSS in order to develop the front-end of websites."><title>Hands on HTML & CSS</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://yangls06.github.io/digital-garden//icon.png><link href=https://yangls06.github.io/digital-garden/styles.708c2658f93e3a9d323a1f9fded8f4b2.min.css rel=stylesheet><link href=https://yangls06.github.io/digital-garden/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://yangls06.github.io/digital-garden/js/darkmode.aa0630d04550405b827df945275af6c3.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script src=https://yangls06.github.io/digital-garden/js/popover.9b72b70bd35617d0635e9d15463662b2.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const BASE_URL="https://yangls06.github.io/digital-garden/",fetchData=Promise.all([fetch("https://yangls06.github.io/digital-garden/indices/linkIndex.de01467924fc9aef6a9dd355f9f2d1bb.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://yangls06.github.io/digital-garden/indices/contentIndex.7b098e70cc65401b993852f766e9bc56.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://yangls06.github.io/digital-garden",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://yangls06.github.io/digital-garden",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/yangls06.github.io\/digital-garden\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ32FS7YEX"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-GQ32FS7YEX",{anonymize_ip:!1})}</script><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://yangls06.github.io/digital-garden/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://yangls06.github.io/digital-garden/>🪴 无人之路</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><h1>Hands on HTML & CSS</h1><p class=meta>Last updated
+Jan 5, 2023
+<a href=https://github.com/yangls06/digital-garden/tree/hugo/content/notes/hands-on-html-css.md rel=noopener>Edit Source</a></p><ul class=tags><li><a href=https://yangls06.github.io/digital-garden/tags/HTML/>HTML</a></li><li><a href=https://yangls06.github.io/digital-garden/tags/CSS/>Css</a></li></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#references>References</a></li><li><a href=#html-basics>HTML Basics</a><ol><li><a href=#html-element>HTML element</a></li><li><a href=#basic-html>Basic HTML</a></li></ol></li><li><a href=#css-basics>CSS Basics</a><ol><li><a href=#file-layout>File Layout</a></li><li><a href=#css-rulesets>CSS Rulesets</a></li><li><a href=#different-types-of-selectors>Different Types of Selectors</a></li><li><a href=#fonts-and-text>Fonts and Text</a></li><li><a href=#the-box-model>The Box Model</a></li><li><a href=#changing-the-page-color>Changing the Page Color</a></li><li><a href=#styling-the-body>Styling the Body</a></li><li><a href=#positioning-and-styling-the-main-page-title>Positioning and Styling the Main Page Title</a></li><li><a href=#centering-the-image>Centering the Image</a></li></ol></li></ol></nav></details></aside><a href=#hands-on-html--css><h1 id=hands-on-html--css><span class=hanchor arialabel=Anchor># </span>Hands on HTML & CSS</h1></a><blockquote><p>This is my practices on HTML&CSS in order to develop the front-end of websites.</p></blockquote><a href=#references><h2 id=references><span class=hanchor arialabel=Anchor># </span>References</h2></a><p><a href=https://developer.mozilla.org/zh-CN/docs/Web/HTML rel=noopener>MDN HTML</a></p><p><a href=https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics rel=noopener>HTML basics</a></p><p><a href=https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/CSS_basics rel=noopener>CSS basics</a></p><a href=#html-basics><h2 id=html-basics><span class=hanchor arialabel=Anchor># </span>HTML Basics</h2></a><a href=#html-element><h3 id=html-element><span class=hanchor arialabel=Anchor># </span>HTML element</h3></a><p>A HTML document describes the content of a web page, which contains many
+<a href=https://developer.mozilla.org/zh-CN/docs/Glossary/Element rel=noopener>HTML element</a>s:</p><p><img src=https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/anatomy-of-an-html-element.png width=auto alt='Example: in <p class="nice">Hello world!</p>, &amp;lsquo;<p class="nice">&amp;rsquo; is an opening tag, &amp;lsquo;class=&amp;ldquo;nice&amp;rdquo;&amp;rsquo; is an attribute and its value, &amp;lsquo;Hello world!&amp;rsquo; is enclosed text content, and &amp;lsquo;</p>&amp;rsquo; is a closing tag.'></p><a href=#basic-html><h3 id=basic-html><span class=hanchor arialabel=Anchor># </span>Basic HTML</h3></a><p>A basic <code>index.html</code> is:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=cp>&lt;!DOCTYPE html&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>head</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>meta</span> <span class=na>charset</span><span class=o>=</span><span class=s>&#34;UTF-8&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>title</span><span class=p>&gt;</span>My test html page<span class=p>&lt;/</span><span class=nt>title</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>head</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>body</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;&lt;</span><span class=nt>strong</span><span class=p>&gt;</span>HTML tag: h1~h5<span class=p>&lt;/</span><span class=nt>strong</span><span class=p>&gt;&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;</span>HTML Basics<span class=p>&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>h2</span><span class=p>&gt;</span>2023年，崭新的一年<span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>h3</span><span class=p>&gt;</span>2023年，崭新的一年<span class=p>&lt;/</span><span class=nt>h3</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=c>&lt;!-- &lt;h4&gt;2023年，崭新的一年&lt;/h4&gt;
+</span></span></span><span class=line><span class=cl><span class=c>    &lt;h5&gt;2023年，崭新的一年&lt;/h5&gt;
+</span></span></span><span class=line><span class=cl><span class=c>    &lt;h6&gt;2023年，崭新的一年&lt;/h6&gt; --&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;&lt;</span><span class=nt>strong</span><span class=p>&gt;</span>HTML tag: img<span class=p>&lt;/</span><span class=nt>strong</span><span class=p>&gt;&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>img</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;images/2023.jpg&#34;</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;my test image&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;600&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;400&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;&lt;</span><span class=nt>strong</span><span class=p>&gt;</span>HTML tag: p<span class=p>&lt;/</span><span class=nt>strong</span><span class=p>&gt;&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>新的转机和闪闪的星斗，正在缀满没有遮拦的天空。这是5000年的象形文字，这是未来人们凝视的眼睛👁。<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;&lt;</span><span class=nt>strong</span><span class=p>&gt;</span>HTML tag: strong<span class=p>&lt;/</span><span class=nt>strong</span><span class=p>&gt;&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>新的转机和闪闪的星斗，正在缀满没有遮拦的天空。这是5000年的象形文字，<span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;</span>这是未来人们凝视的眼睛👁。<span class=p>&lt;/</span><span class=nt>strong</span><span class=p>&gt;&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;&lt;</span><span class=nt>strong</span><span class=p>&gt;</span>HTML tag: Unordered List<span class=p>&lt;/</span><span class=nt>strong</span><span class=p>&gt;&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>At Mozilla, we&#39;re a global community of<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>technologists<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>thinkers<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>builders<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>working together…<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;&lt;</span><span class=nt>strong</span><span class=p>&gt;</span>HTML tag: Ordered List<span class=p>&lt;/</span><span class=nt>strong</span><span class=p>&gt;&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>At Mozilla, we&#39;re a global community of<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>ol</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>technologists<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>thinkers<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>builders<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>ol</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>working together…<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;&lt;</span><span class=nt>strong</span><span class=p>&gt;</span>HTML tag: a<span class=p>&lt;/</span><span class=nt>strong</span><span class=p>&gt;&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/HTML_basics&#34;</span><span class=p>&gt;</span>mdn HTML Basics<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>body</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>The page based on it:</p><p><img src=https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/e3ed2a84-b999-4113-b138-310a22c9ab35.jpeg width=auto alt=e3ed2a84-b999-4113-b138-310a22c9ab35></p><a href=#css-basics><h2 id=css-basics><span class=hanchor arialabel=Anchor># </span>CSS Basics</h2></a><p><a href=https://developer.mozilla.org/zh-CN/docs/Learn/Getting_started_with_the_web/CSS_basics rel=noopener>CSS basics</a></p><p>CSS is all about <code>style</code> (how it looks) of web content. It concerns the following questions:</p><ul><li>How do I make text red?</li><li>How do I make content display at a certain location in the (webpage) layout?</li><li>How do I decorate my webpage with background images and colors?</li></ul><a href=#file-layout><h3 id=file-layout><span class=hanchor arialabel=Anchor># </span>File Layout</h3></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ tree -L <span class=m>2</span>
+</span></span><span class=line><span class=cl>.
+</span></span><span class=line><span class=cl>├── images
+</span></span><span class=line><span class=cl>│   └── 2023.jpg
+</span></span><span class=line><span class=cl>├── index.html
+</span></span><span class=line><span class=cl>└── styles
+</span></span><span class=line><span class=cl>    └── style.css
+</span></span></code></pre></td></tr></table></div></div><p>We store the CSS content in a <code>.css</code> file under the <code>styles</code> folder. The content of <code>style.css</code> is like:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=nt>p</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=kc>red</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>and imports it in <code>index.html</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>head</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>meta</span> <span class=na>charset</span><span class=o>=</span><span class=s>&#34;UTF-8&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>title</span><span class=p>&gt;</span>My test html page<span class=p>&lt;/</span><span class=nt>title</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>    <span class=c>&lt;!-- import css here --&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>link</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;styles/style.css&#34;</span> <span class=na>rel</span><span class=o>=</span><span class=s>&#34;stylesheet&#34;</span><span class=p>&gt;</span> 
+</span></span><span class=line><span class=cl><span class=err>&lt;</span>/head
+</span></span></code></pre></td></tr></table></div></div><p>which makes all the <code>&lt;p></code> elements red, as following:</p><p><img src=https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20230105145429781.png width=auto alt=image-20230105145429781></p><a href=#css-rulesets><h3 id=css-rulesets><span class=hanchor arialabel=Anchor># </span>CSS Rulesets</h3></a><p>The basic element of CSS is called <code>ruleset</code>, which is explained as following:</p><p><img src=https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/css-declaration-small.png width=auto alt="CSS p declaration color red"></p><ul><li><p>SelectorIt defines the element(s) to be styled (in this example, <code>&lt;p></code> elements). To style a different element, change the selector.</p></li><li><p>Declaration. It specifies which of the element&rsquo;s <strong>properties</strong> you want to style, like <code>color: red;</code>.</p></li></ul><p>You can change the style:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=nt>p</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=kc>blue</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>500</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border</span><span class=p>:</span> <span class=mi>1</span><span class=kt>px</span> <span class=kc>solid</span> <span class=kc>black</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><img src=https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20230105160938495.png width=auto alt=image-20230105160938495></p><p>You can select multiple elements using <code>,</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=nt>p</span><span class=o>,</span>
+</span></span><span class=line><span class=cl><span class=nt>li</span><span class=o>,</span>
+</span></span><span class=line><span class=cl><span class=nt>h1</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>color</span><span class=p>:</span> <span class=kc>red</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>which generates:</p><p><img src=https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20230105161248652.png width=auto alt=image-20230105161248652></p><a href=#different-types-of-selectors><h3 id=different-types-of-selectors><span class=hanchor arialabel=Anchor># </span>Different Types of Selectors</h3></a><p>There are 5 basic types of selectors.</p><table><thead><tr><th style=text-align:left>Selector name</th><th style=text-align:left>What does it select</th><th style=text-align:left>Example</th></tr></thead><tbody><tr><td style=text-align:left>Element selector (sometimes called a tag or type selector)</td><td style=text-align:left>All HTML elements of the specified type.</td><td style=text-align:left><code>p</code> selects <code>&lt;p></code></td></tr><tr><td style=text-align:left>ID selector</td><td style=text-align:left>The element on the page with the specified ID. On a given HTML page, each id value should be unique.</td><td style=text-align:left><code>#my-id</code> selects <code>&lt;p id="my-id"></code> or <code>&lt;a id="my-id"></code></td></tr><tr><td style=text-align:left>Class selector</td><td style=text-align:left>The element(s) on the page with the specified class. Multiple instances of the same class can appear on a page.</td><td style=text-align:left><code>.my-class</code> selects <code>&lt;p class="my-class"></code> and <code>&lt;a class="my-class"></code></td></tr><tr><td style=text-align:left>Attribute selector</td><td style=text-align:left>The element(s) on the page with the specified attribute.</td><td style=text-align:left><code>img[src]</code> selects <code>&lt;img src="myimage.png"></code> but not <code>&lt;img></code></td></tr><tr><td style=text-align:left>Pseudo-class selector</td><td style=text-align:left>The specified element(s), but only when in the specified state. (For example, when a cursor hovers over a link.)</td><td style=text-align:left><code>a:hover</code> selects <code>&lt;a></code>, but only when the mouse pointer is hovering over the link.</td></tr></tbody></table><a href=#fonts-and-text><h3 id=fonts-and-text><span class=hanchor arialabel=Anchor># </span>Fonts and Text</h3></a><p>First, find the
+<a href=https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/What_will_your_website_look_like#font rel=noopener>output from Google Fonts</a> that you previously saved from
+<a href=https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/What_will_your_website_look_like rel=noopener>What will your website look like?</a>. Add the <code>link</code> element somewhere inside your <code>index.html</code>&rsquo;s head (anywhere between the <code>&lt;head></code> tags). It looks something like this:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>link</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;https://fonts.googleapis.com/css?family=Open+Sans&#34;</span> <span class=na>rel</span><span class=o>=</span><span class=s>&#34;stylesheet&#34;</span> <span class=p>/&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>Next, delete the existing rule you have in your <code>style.css</code> file. It was a good test, but let&rsquo;s not continue with lots of red text.</p><p>Add the following lines (shown below), replacing the <code>font-family</code> assignment with your <code>font-family</code> selection. The property <code>font-family</code> refers to the font(s) you want to use for text. This rule defines a global base font and font size for the whole page. Since <code>&lt;html></code> is the parent element of the whole page, all elements inside it inherit the same <code>font-size</code> and <code>font-family</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=nt>html</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>font-size</span><span class=p>:</span> <span class=mi>10</span><span class=kt>px</span><span class=p>;</span> <span class=c>/* px means &#34;pixels&#34;: the base font size is now 10 pixels high */</span>
+</span></span><span class=line><span class=cl>  <span class=k>font-family</span><span class=p>:</span> <span class=s2>&#34;Open Sans&#34;</span><span class=p>,</span> <span class=kc>sans-serif</span><span class=p>;</span> <span class=c>/* this should be the rest of the output you got from Google Fonts */</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>The page is like this now:</p><p><img src=https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20230105164921181.png width=auto alt=image-20230105164921181></p><p>Now let&rsquo;s set font sizes for elements that will have text inside the HTML body (<code>&lt;h1></code>, <code>&lt;li></code> and <code>&lt;p></code>). We&rsquo;ll also center the heading. Finally, let&rsquo;s expand the second ruleset (below) with settings for line height and letter spacing to make body content more readable.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=nt>h1</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>font-size</span><span class=p>:</span> <span class=mi>60</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>text-align</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nt>p</span><span class=o>,</span>
+</span></span><span class=line><span class=cl><span class=nt>li</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>font-size</span><span class=p>:</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>line-height</span><span class=p>:</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>letter-spacing</span><span class=p>:</span> <span class=mi>1</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>which changes the font-size and other styles:</p><p><img src=https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20230105165727652.png width=auto alt=image-20230105165727652></p><a href=#the-box-model><h3 id=the-box-model><span class=hanchor arialabel=Anchor># </span>The Box Model</h3></a><p>Most HTML elements can be thought of as boxes sitting on the top of other boxes. CSS is about setting the size, color and position of boxes.</p><p><img src=https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics/box-model.png width=auto alt="Three boxes sat inside one another. From outside to in they are labelled margin, border and padding"></p><p>Each box taking up space on your page has properties like:</p><ul><li><code>padding</code>, the space around the content. In the example below, it is the space around the paragraph text.</li><li><code>border</code>, the solid line that is just outside the padding.</li><li><code>margin</code>, the space around the outside of the border.</li></ul><p>In this section we also use:</p><ul><li><code>width</code> (of an element).</li><li><code>background-color</code>, the color behind an element&rsquo;s content and padding.</li><li><code>color</code>, the color of an element&rsquo;s content (usually text).</li><li><code>text-shadow</code> sets a drop shadow on the text inside an element.</li><li><code>display</code> sets the display mode of an element. (keep reading to learn more)</li></ul><a href=#changing-the-page-color><h3 id=changing-the-page-color><span class=hanchor arialabel=Anchor># </span>Changing the Page Color</h3></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=nt>html</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>background-color</span><span class=p>:</span> <span class=mh>#00539f</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#styling-the-body><h3 id=styling-the-body><span class=hanchor arialabel=Anchor># </span>Styling the Body</h3></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=nt>body</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>width</span><span class=p>:</span> <span class=mi>600</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>margin</span><span class=p>:</span> <span class=mi>0</span> <span class=kc>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>background-color</span><span class=p>:</span> <span class=mh>#ff9500</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>padding</span><span class=p>:</span> <span class=mi>0</span> <span class=mi>20</span><span class=kt>px</span> <span class=mi>20</span><span class=kt>px</span> <span class=mi>20</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>border</span><span class=p>:</span> <span class=mi>5</span><span class=kt>px</span> <span class=kc>solid</span> <span class=kc>black</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><code>width: 600px;</code> This forces the body to always be 600 pixels wide.</li><li><code>margin: 0 auto;</code> When you set two values on a property like <code>margin</code> or <code>padding</code>, the first value affects the element&rsquo;s top <em>and</em> bottom side (setting it to <code>0</code> in this case); the second value affects the left <em>and</em> right side. (Here, <code>auto</code> is a special value that divides the available horizontal space evenly between left and right). You can also use one, two, three, or four values, as documented in
+<a href=https://developer.mozilla.org/en-US/docs/Web/CSS/margin#syntax rel=noopener>Margin Syntax</a>.</li><li><code>background-color: #FF9500;</code> This sets the element&rsquo;s background color. This project uses a reddish orange for the body background color, as opposed to dark blue for the
+<a href=https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html rel=noopener>``</a> element. (Feel free to experiment.)</li><li><code>padding: 0 20px 20px 20px;</code> This sets four values for padding. The goal is to put some space around the content. In this example, there is no padding on the top of the body, and 20 pixels on the right, bottom and left. The values set <strong>top, right, bottom, left</strong>, in that order. As with <code>margin</code>, you can use one, two, three, or four values, as documented in
+<a href=https://developer.mozilla.org/en-US/docs/Web/CSS/padding#syntax rel=noopener>Padding Syntax</a>.</li><li><code>border: 5px solid black;</code> This sets values for the width, style and color of the border. In this case, it&rsquo;s a five-pixel–wide, solid black border, on all sides of the body.</li></ul><a href=#positioning-and-styling-the-main-page-title><h3 id=positioning-and-styling-the-main-page-title><span class=hanchor arialabel=Anchor># </span>Positioning and Styling the Main Page Title</h3></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=nt>h1</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>margin</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>padding</span><span class=p>:</span> <span class=mi>20</span><span class=kt>px</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>color</span><span class=p>:</span> <span class=mh>#00539f</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>text-shadow</span><span class=p>:</span> <span class=mi>3</span><span class=kt>px</span> <span class=mi>3</span><span class=kt>px</span> <span class=mi>1</span><span class=kt>px</span> <span class=kc>black</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>text-shadow</code> applies a shadow to the text content of the element. Its four values are:</p><ul><li>The first pixel value sets the <strong>horizontal offset</strong> of the shadow from the text: how far it moves across.</li><li>The second pixel value sets the <strong>vertical offset</strong> of the shadow from the text: how far it moves down.</li><li>The third pixel value sets the <strong>blur radius</strong> of the shadow. A larger value produces a more fuzzy-looking shadow.</li><li>The fourth value sets the base color of the shadow.</li></ul><a href=#centering-the-image><h3 id=centering-the-image><span class=hanchor arialabel=Anchor># </span>Centering the Image</h3></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=nt>img</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>display</span><span class=p>:</span> <span class=kc>block</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>margin</span><span class=p>:</span> <span class=mi>0</span> <span class=kc>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Next, we center the image to make it look better. We could use the <code>margin: 0 auto</code> trick again as we did for the body. But there are differences that require an additional setting to make the CSS work.</p><p>The <code>body</code> is a <strong>block</strong> element, meaning it takes up space on the page. The margin applied to a block element will be respected by other elements on the page. In contrast, images are <strong>inline</strong> elements, for the auto margin trick to work on this image, we must give it block-level behavior using <code>display: block;</code></p><p>Now, the page looks like this:</p><p><img src=https://happy3-data.oss-cn-hangzhou.aliyuncs.com/content-images/image-20230105174108098.png width=auto alt=image-20230105174108098></p></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li><a href=/digital-garden/notes/web-development/ data-ctx="Hands on HTML&CSS" data-src=/notes/web-development class=internal-link>Web Development</a></li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://yangls06.github.io/digital-garden/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by yangls06 using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2023</p><ul><li><a href=https://yangls06.github.io/digital-garden/>Home</a></li><li><a href=https://github.com/yangls06>Github</a></li></ul></footer></div></div></body></html>
