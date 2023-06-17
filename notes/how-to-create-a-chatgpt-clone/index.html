@@ -1,0 +1,236 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="How to Create a ChatGPT Clone  I want to explore the OpenAI API and ChatGPT magic by creating a Simple ChatGPT Clone."><title>🪴 无人之路</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://yangls06.github.io/digital-garden//icon.png><link href=https://yangls06.github.io/digital-garden/styles.708c2658f93e3a9d323a1f9fded8f4b2.min.css rel=stylesheet><link href=https://yangls06.github.io/digital-garden/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://yangls06.github.io/digital-garden/js/darkmode.aa0630d04550405b827df945275af6c3.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script src=https://yangls06.github.io/digital-garden/js/popover.9b72b70bd35617d0635e9d15463662b2.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
+<script src=https://yangls06.github.io/digital-garden/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const BASE_URL="https://yangls06.github.io/digital-garden/",fetchData=Promise.all([fetch("https://yangls06.github.io/digital-garden/indices/linkIndex.86affe92bde842f45c210208702b1f01.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://yangls06.github.io/digital-garden/indices/contentIndex.2f3cd8dbe3e81c74182fef0a92024598.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://yangls06.github.io/digital-garden",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://yangls06.github.io/digital-garden",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/yangls06.github.io\/digital-garden\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ32FS7YEX"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-GQ32FS7YEX",{anonymize_ip:!1})}</script><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://yangls06.github.io/digital-garden/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://yangls06.github.io/digital-garden/>🪴 无人之路</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><p class=meta>Last updated
+Jun 17, 2023
+<a href=https://github.com/yangls06/digital-garden/tree/hugo/content/notes/how-to-create-a-chatgpt-clone.md rel=noopener>Edit Source</a></p><ul class=tags></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#reference>Reference</a></li><li><a href=#step-by-step>Step by step</a><ol><li><a href=#step-1-ask-chatgpt-for-coding>Step 1: Ask ChatGPT for coding</a></li><li><a href=#gitignore>gitignore</a></li><li><a href=#openapi-key>OpenAPI key</a></li></ol></li></ol></nav></details></aside><a href=#how-to-create-a-chatgpt-clone><h1 id=how-to-create-a-chatgpt-clone><span class=hanchor arialabel=Anchor># </span>How to Create a ChatGPT Clone</h1></a><blockquote><p>I want to explore the OpenAI API and ChatGPT magic by creating a Simple ChatGPT Clone. Here is all about it.</p></blockquote><a href=#reference><h2 id=reference><span class=hanchor arialabel=Anchor># </span>Reference</h2></a><p><a href="https://www.youtube.com/watch?v=977mChpScU4&ab_channel=ChatGPTTutorials" rel=noopener>Youtube: Build ChatGPT Clone using Open AI API</a></p><a href=#step-by-step><h2 id=step-by-step><span class=hanchor arialabel=Anchor># </span>Step by step</h2></a><a href=#step-1-ask-chatgpt-for-coding><h3 id=step-1-ask-chatgpt-for-coding><span class=hanchor arialabel=Anchor># </span>Step 1: Ask ChatGPT for coding</h3></a><blockquote><p>Me：code a python flask server with &lsquo;/prompt&rsquo; route with post method and taking string input. use openai api and send string as prompt and return the response.</p><p>ChatGPT: Here&rsquo;s a sample code for a Flask server that implements the &ldquo;/prompt&rdquo; route with a POST method and uses the OpenAI API to generate a response based on a string input:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>flask</span> <span class=kn>import</span> <span class=n>Flask</span><span class=p>,</span> <span class=n>request</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>openai</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>app</span> <span class=o>=</span> <span class=n>Flask</span><span class=p>(</span><span class=vm>__name__</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@app</span><span class=o>.</span><span class=n>route</span><span class=p>(</span><span class=s2>&#34;/prompt&#34;</span><span class=p>,</span> <span class=n>methods</span><span class=o>=</span><span class=p>[</span><span class=s2>&#34;POST&#34;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>prompt</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>prompt_text</span> <span class=o>=</span> <span class=n>request</span><span class=o>.</span><span class=n>form</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;prompt&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>openai</span><span class=o>.</span><span class=n>api_key</span> <span class=o>=</span> <span class=s2>&#34;YOUR_OPENAI_API_KEY&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>response</span> <span class=o>=</span> <span class=n>openai</span><span class=o>.</span><span class=n>Completion</span><span class=o>.</span><span class=n>create</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=n>engine</span><span class=o>=</span><span class=s2>&#34;text-davinci-002&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>prompt</span><span class=o>=</span><span class=n>prompt_text</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>max_tokens</span><span class=o>=</span><span class=mi>1024</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>n</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>stop</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>temperature</span><span class=o>=</span><span class=mf>0.5</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>message</span> <span class=o>=</span> <span class=n>response</span><span class=p>[</span><span class=s2>&#34;choices&#34;</span><span class=p>][</span><span class=mi>0</span><span class=p>][</span><span class=s2>&#34;text&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>message</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>app</span><span class=o>.</span><span class=n>run</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div></blockquote><blockquote><p>Me: generate the requirement.txt and setup.py for the above with &lsquo;Simple ChatGPT Clone&rsquo; as the app name and yangls06 as my username.</p><p>ChatGPT: Here&rsquo;s the <code>requirements.txt</code> file for the above code:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Flask==1.1.2
+</span></span><span class=line><span class=cl>openai==1.7.0
+</span></span></code></pre></td></tr></table></div></div><p>And here&rsquo;s the <code>setup.py</code> file:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>setuptools</span> <span class=kn>import</span> <span class=n>setup</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>setup</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=n>name</span><span class=o>=</span><span class=s1>&#39;simple-chatgpt-clone&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>version</span><span class=o>=</span><span class=s1>&#39;0.1&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>packages</span><span class=o>=</span><span class=p>[],</span>
+</span></span><span class=line><span class=cl>    <span class=n>url</span><span class=o>=</span><span class=s1>&#39;https://github.com/yangls06/simple-chatgpt-clone&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>license</span><span class=o>=</span><span class=s1>&#39;MIT&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>author</span><span class=o>=</span><span class=s1>&#39;yangls06&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>author_email</span><span class=o>=</span><span class=s1>&#39;your.email@example.com&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>description</span><span class=o>=</span><span class=s1>&#39;A Simple ChatGPT Clone built with Flask and OpenAI API&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>install_requires</span><span class=o>=</span><span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;Flask==1.1.2&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;openai==1.7.0&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>Note that you&rsquo;ll need to replace the email address with your own email address.</p></blockquote><blockquote><p>Me: how to create a venv for this app and install it and run it in debug model using Flask cmd?</p><p>ChatGPT: Here&rsquo;s how you can create a virtual environment (venv) for this app and install it using Flask CLI in debug mode:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>bashCopy code
+</span></span><span class=line><span class=cl># Create a virtual environment
+</span></span><span class=line><span class=cl>python3 -m venv venv
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># Activate the virtual environment
+</span></span><span class=line><span class=cl>source venv/bin/activate
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># Install the required packages
+</span></span><span class=line><span class=cl>pip install -r requirements.txt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># Set the FLASK_APP and FLASK_ENV environment variables
+</span></span><span class=line><span class=cl>export FLASK_APP=app.py
+</span></span><span class=line><span class=cl>export FLASK_ENV=development
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># Run the Flask app in debug mode
+</span></span><span class=line><span class=cl>flask run
+</span></span></code></pre></td></tr></table></div></div><p>Replace <code>app.py</code> with the name of the file that contains your Flask application, if it&rsquo;s different.</p><p>With this configuration, you can now access the app in your web browser at <code>http://localhost:5000/</code>. Any changes you make to the code will be automatically reflected in the browser, without the need to restart the app. However, it&rsquo;s important to note that you should not use the Flask debugger in production, as it can expose sensitive information and allow arbitrary code execution.</p></blockquote><blockquote><p>Me: create &lsquo;/&rsquo; default route with GET method and return index.html</p></blockquote><blockquote><p>Me: code for &lsquo;index.html&rsquo; with bootstrap, displaying input field and submit button. on click submit button check if input is not empty then send POST request to &lsquo;/prompt&rsquo; with text from input field as string and display the response.</p><p>ChatGPT: Here&rsquo;s an example of how you can code &lsquo;index.html&rsquo; with Bootstrap, an input field, and a submit button. The HTML file will look for an onclick event for the submit button, and if the input field is not empty, it will send a POST request to the &lsquo;/prompt&rsquo; route. Finally, it will display the response from the server.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=cp>&lt;!DOCTYPE html&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>html</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;</span><span class=nt>head</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>meta</span> <span class=na>charset</span><span class=o>=</span><span class=s>&#34;utf-8&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>meta</span> <span class=na>name</span><span class=o>=</span><span class=s>&#34;viewport&#34;</span> <span class=na>content</span><span class=o>=</span><span class=s>&#34;width=device-width, initial-scale=1&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>link</span> <span class=na>rel</span><span class=o>=</span><span class=s>&#34;stylesheet&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>script</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;/</span><span class=nt>head</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;</span><span class=nt>body</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;container&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>h2</span><span class=p>&gt;</span>Simple ChatGPT Clone<span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>form</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;form-group&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>label</span> <span class=na>for</span><span class=o>=</span><span class=s>&#34;prompt&#34;</span><span class=p>&gt;</span>Enter a prompt:<span class=p>&lt;/</span><span class=nt>label</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;text&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;form-control&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;prompt&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>button</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;button&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;btn btn-default&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;submit&#34;</span><span class=p>&gt;</span>Submit<span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>form</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>p</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;response&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>script</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>$</span><span class=p>(</span><span class=nb>document</span><span class=p>).</span><span class=nx>ready</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$</span><span class=p>(</span><span class=s2>&#34;#submit&#34;</span><span class=p>).</span><span class=nx>click</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=kd>var</span> <span class=nx>prompt</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=s2>&#34;#prompt&#34;</span><span class=p>).</span><span class=nx>val</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>          <span class=k>if</span> <span class=p>(</span><span class=nx>prompt</span><span class=p>.</span><span class=nx>length</span> <span class=o>===</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>alert</span><span class=p>(</span><span class=s2>&#34;Please enter a prompt&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>          <span class=p>}</span>
+</span></span><span class=line><span class=cl>          <span class=nx>$</span><span class=p>.</span><span class=nx>post</span><span class=p>(</span><span class=s2>&#34;/prompt&#34;</span><span class=p>,</span> <span class=p>{</span><span class=nx>prompt</span><span class=o>:</span> <span class=nx>prompt</span><span class=p>},</span> <span class=kd>function</span><span class=p>(</span><span class=nx>data</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>$</span><span class=p>(</span><span class=s2>&#34;#response&#34;</span><span class=p>).</span><span class=nx>text</span><span class=p>(</span><span class=nx>data</span><span class=p>.</span><span class=nx>response</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>          <span class=p>});</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>      <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;/</span><span class=nt>body</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>html</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div></blockquote><a href=#gitignore><h3 id=gitignore><span class=hanchor arialabel=Anchor># </span>gitignore</h3></a><blockquote><p>Me: create a gitignore file for this project</p><p>ChatGPT:</p><p>Here&rsquo;s an example of a <code>.gitignore</code> file for a Flask project:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># .gitignore</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Byte-compiled / optimized / DLL files</span>
+</span></span><span class=line><span class=cl>__pycache__/
+</span></span><span class=line><span class=cl>*.pyc
+</span></span><span class=line><span class=cl>*.pyo
+</span></span><span class=line><span class=cl>*.egg-info/
+</span></span><span class=line><span class=cl>dist/
+</span></span><span class=line><span class=cl>build/
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Flask environment</span>
+</span></span><span class=line><span class=cl>instance/
+</span></span><span class=line><span class=cl>.env
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># venv</span>
+</span></span><span class=line><span class=cl>venv/
+</span></span></code></pre></td></tr></table></div></div><p>This <code>.gitignore</code> file will ignore any byte-compiled Python files (e.g., <code>*.pyc</code>), directories generated by Python eggs (e.g., <code>*.egg-info/</code>), and directories generated during the build process (e.g., <code>dist/</code>, <code>build/</code>). It also ignores the Flask <code>instance</code> directory, which is typically used to store sensitive information like database credentials. Finally, it ignores the virtual environment directory (e.g., <code>venv/</code>).</p></blockquote><a href=#openapi-key><h3 id=openapi-key><span class=hanchor arialabel=Anchor># </span>OpenAPI key</h3></a><p><a href=https://platform.openai.com/docs/quickstart/build-your-application rel=noopener>https://platform.openai.com/docs/quickstart/build-your-application</a></p><p><a href=https://platform.openai.com/account/api-keys rel=noopener>https://platform.openai.com/account/api-keys</a></p></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://yangls06.github.io/digital-garden/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by yangls06 using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2023</p><ul><li><a href=https://yangls06.github.io/digital-garden/>Home</a></li><li><a href=https://github.com/yangls06>Github</a></li></ul></footer></div></div></body></html>
